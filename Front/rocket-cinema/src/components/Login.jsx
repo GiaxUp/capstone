@@ -1,5 +1,6 @@
 import React, { useState } from "react";
 import axios from "axios";
+import "../style/Login.css";
 
 export default function Login() {
   let [authMode, setAuthMode] = useState("signin");
@@ -53,33 +54,33 @@ export default function Login() {
       console.error("Errore durante la registrazione:", error);
     }
   };
-
   if (authMode === "signin") {
     return (
       <div className="Auth-form-container">
         <form className="Auth-form" onSubmit={handleSubmit}>
           <div className="Auth-form-content">
-            <h3 className="Auth-form-title">Sign In</h3>
+            <h3 className="Auth-form-title">Login</h3>
             <div className="text-center">
               Not registered yet?{" "}
               <span className="link-primary" onClick={changeAuthMode}>
-                Sign Up
-              </span>
+                Sign up
+              </span>{" "}
+              now!
             </div>
             <div className="form-group mt-3">
-              <label>Email address</label>
-              <input type="email" className="form-control mt-1" placeholder="Enter email" />
+              <label>Email</label>
+              <input type="email" className="form-control mt-1" placeholder="youremail@example.com" />
             </div>
             <div className="form-group mt-3">
               <label>Password</label>
-              <input type="password" className="form-control mt-1" placeholder="Enter password" />
+              <input type="password" className="form-control mt-1" placeholder="***********" />
             </div>
             <div className="d-grid gap-2 mt-3">
               <button type="submit" className="btn btn-primary">
                 Submit
               </button>
             </div>
-            <p className="text-center mt-2">Forgot password?</p>
+            <p className="text-center mt-2 link-primary">Forgot password?</p>
           </div>
         </form>
       </div>
@@ -90,31 +91,31 @@ export default function Login() {
     <div className="Auth-form-container">
       <form className="Auth-form" onSubmit={handleSubmit}>
         <div className="Auth-form-content">
-          <h3 className="Auth-form-title">Sign Up</h3>
+          <h3 className="Auth-form-title">Register for free!</h3>
           <div className="text-center">
             Already registered?{" "}
             <span className="link-primary" onClick={changeAuthMode}>
-              Sign In
+              Sign in
             </span>
+            .
           </div>
           <div className="form-group mt-3">
             <label>Full Name</label>
-            <input type="text" className="form-control mt-1" placeholder="e.g Jane Doe" />
+            <input type="text" className="form-control mt-1" placeholder="e.g Paolo Fasulli" />
           </div>
           <div className="form-group mt-3">
             <label>Email address</label>
-            <input type="email" className="form-control mt-1" placeholder="Email Address" />
+            <input type="email" className="form-control mt-1" placeholder="youremail@example.com" />
           </div>
           <div className="form-group mt-3">
             <label>Password</label>
-            <input type="password" className="form-control mt-1" placeholder="Password" />
+            <input type="password" className="form-control mt-1" placeholder="***********" />
           </div>
-          <div className="d-grid gap-2 mt-3">
+          <div className="d-grid gap-2 mt-3 mb-4">
             <button type="submit" className="btn btn-primary">
               Submit
             </button>
           </div>
-          <p className="text-center mt-2">Forgot password?</p>
         </div>
       </form>
     </div>

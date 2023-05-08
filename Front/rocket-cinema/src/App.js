@@ -1,7 +1,7 @@
-import "./App.css";
 import { BrowserRouter, Routes, Route } from "react-router-dom";
 import Login from "../src/components/Login.jsx";
 import Home from "../src/components/Home.jsx";
+import AnimatedBackground from "../src/components/AnimatedBackground.jsx";
 
 function App() {
   return (
@@ -14,6 +14,7 @@ function App() {
         {/* <Route path="/checkout" element={<Checkout />} /> */}
       </Routes>
       {/* <Footer /> */}
+      <AnimatedBackground />
     </BrowserRouter>
   );
 }
