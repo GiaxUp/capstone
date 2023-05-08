@@ -1,9 +1,11 @@
 import React from "react";
+import "../style/Login.css";
+import "../style/Background.css";
 
 const Home = () => {
   return (
-    <div>
-      <h2>Sei nella home!</h2>
+    <div className="text-center prio">
+      <h1>Sei nella home!</h1>
     </div>
   );
 };

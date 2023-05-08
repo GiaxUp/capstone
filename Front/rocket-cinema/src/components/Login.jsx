@@ -1,6 +1,7 @@
 import React, { useState } from "react";
 import axios from "axios";
 import "../style/Login.css";
+import "../style/Background.css";
 
 export default function Login() {
   let [authMode, setAuthMode] = useState("signin");
