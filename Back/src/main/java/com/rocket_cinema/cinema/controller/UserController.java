@@ -9,23 +9,25 @@ import org.springframework.web.bind.annotation.RestController;
 
 import com.rocket_cinema.cinema.service.UserService;
 
-@RestController
-@RequestMapping("/api/users")
-public class UserController {
-    private final UserService userService;
+//Utilizzato per il Login pre-homepage. Da FIXARE.
 
-    public UserController(UserService userService) {
-        this.userService = userService;
-    }
-
-    @PostMapping("/register")
-    public ResponseEntity<?> registerUser(@RequestBody UserRegistrationRequest request) {
-        try {
-            userService.registerUser(request.getUsername(), request.getPassword());
-            return new ResponseEntity<>(HttpStatus.CREATED);
-        } catch (Exception e) {
-            return new ResponseEntity<>(e.getMessage(), HttpStatus.BAD_REQUEST);
-        }
-    }
-}
+//@RestController
+//@RequestMapping("/api/users")
+//public class UserController {
+//    private final UserService userService;
+//
+//    public UserController(UserService userService) {
+//        this.userService = userService;
+//    }
+//
+//    @PostMapping("/register")
+//    public ResponseEntity<?> registerUser(@RequestBody UserRegistrationRequest request) {
+//        try {
+//            userService.registerUser(request.getUsername(), request.getPassword());
+//            return new ResponseEntity<>(HttpStatus.CREATED);
+//        } catch (Exception e) {
+//            return new ResponseEntity<>(e.getMessage(), HttpStatus.BAD_REQUEST);
+//        }
+//    }
+//}
 

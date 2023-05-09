@@ -78,7 +78,7 @@ export default function Login() {
             </div>
             <div className="d-grid gap-2 mt-3">
               <button type="submit" className="btn btn-primary">
-                Submit
+                Login
               </button>
             </div>
             <p className="text-center mt-2 link-primary">Forgot password?</p>
@@ -114,7 +114,7 @@ export default function Login() {
           </div>
           <div className="d-grid gap-2 mt-3 mb-4">
             <button type="submit" className="btn btn-primary">
-              Submit
+              Register
             </button>
           </div>
         </div>

@@ -7,6 +7,7 @@ function App() {
   return (
     <BrowserRouter>
       {/* <Navbar /> */}
+      {/* <img src="https://i.ibb.co/0CN9nWR/rocket-1f680.gif" alt="rocket"></img> */}
       <Routes>
         <Route path="/" element={<Login />} />
         <Route path="/home" element={<Home />} />
