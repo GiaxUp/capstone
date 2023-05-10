@@ -22,7 +22,7 @@ public class User {
     private int id;
     private String name;
     @Column(unique = true)
-    private String mobile;
+    private String password;
     @CreationTimestamp
     @Temporal(value = TemporalType.TIMESTAMP)  // timestamp means date as well as time
     private Date createdOn; // these will automatically set no need to set manually due to annotation sam with updatedOn
