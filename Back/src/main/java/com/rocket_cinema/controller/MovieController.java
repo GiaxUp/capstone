@@ -20,14 +20,14 @@ public class MovieController {
     }
 
     // get movie by name
-    @GetMapping("/get_Movie_ByName")
+    @GetMapping("/getMovie")
     public List<MovieResponseDto> getMovieByName(@RequestParam("name")String movieName)
     {
               return movieService.getMovieByName(movieName);
     }
 
 
-    @GetMapping("/get_list_of_Theaters")
+    @GetMapping("/getTheaters")
     public List<String> getListOfTheaters(@RequestParam("movie") String movieName) {
         return movieService.getListOfTheatersForAMovie(movieName);
 

@@ -12,18 +12,14 @@ public class TheaterController {
 	@Autowired
 	TheaterService theaterService;
 
-	@PostMapping("/create_theater")
+	@PostMapping("/add")
 	public String createTheater(@RequestBody() TheaterRequestDto theaterRequestDto) {
 		return theaterService.createTheater(theaterRequestDto);
 	}
 
 	// get theater by theaterid
-	@GetMapping("/get_By_theaterId")
+	@GetMapping("/getTheater")
 	public TheaterResponseDto getbyId(@RequestParam("id") int id) {
 		return theaterService.getbyId(id);
 	}
-
-	// get all theaters
-
-	// @GetMapping("/get_By_movie")
 }

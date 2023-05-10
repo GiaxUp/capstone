@@ -7,6 +7,7 @@ import lombok.Data;
 import lombok.NoArgsConstructor;
 
 import java.util.List;
+
 @Entity
 @Table(name = "theater")
 @Data
@@ -15,14 +16,14 @@ import java.util.List;
 @NoArgsConstructor
 public class Theater {
 
-    @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private int id;
-    private String name;
-    private String city;
-    private String address;
-    @OneToMany(mappedBy = "theater",cascade = CascadeType.ALL)
-    private List<TheaterSeat> theaterSeatList;
-    @OneToMany(mappedBy = "theater",cascade = CascadeType.ALL)
-    private List<Show> showList;
+	@Id
+	@GeneratedValue(strategy = GenerationType.IDENTITY)
+	private int id;
+	private String name;
+	private String city;
+	private String address;
+	@OneToMany(mappedBy = "theater", cascade = CascadeType.ALL)
+	private List<TheaterSeat> theaterSeatList;
+	@OneToMany(mappedBy = "theater", cascade = CascadeType.ALL)
+	private List<Show> showList;
 }

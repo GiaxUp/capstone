@@ -10,6 +10,7 @@ import org.hibernate.annotations.UpdateTimestamp;
 
 import java.util.Date;
 import java.util.List;
+
 @Entity
 @Table(name = "users")
 @Data
@@ -17,18 +18,19 @@ import java.util.List;
 @AllArgsConstructor
 @NoArgsConstructor
 public class User {
-    @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private int id;
-    private String name;
-    @Column(unique = true)
-    private String password;
-    @CreationTimestamp
-    @Temporal(value = TemporalType.TIMESTAMP)  // timestamp means date as well as time
-    private Date createdOn; // these will automatically set no need to set manually due to annotation sam with updatedOn
-    @UpdateTimestamp
-    @Temporal(value = TemporalType.TIMESTAMP)
-    private Date updatedOn;
-    @OneToMany(mappedBy = "user",cascade = CascadeType.ALL)
-    private List<Ticket> ticketList;
+	@Id
+	@GeneratedValue(strategy = GenerationType.IDENTITY)
+	private int id;
+	private String name;
+	@Column(unique = true)
+	private String password;
+	@CreationTimestamp
+	@Temporal(value = TemporalType.TIMESTAMP) // timestamp means date as well as time
+	private Date createdOn; // these will automatically set no need to set manually due to annotation sam
+							// with updatedOn
+	@UpdateTimestamp
+	@Temporal(value = TemporalType.TIMESTAMP)
+	private Date updatedOn;
+	@OneToMany(mappedBy = "user", cascade = CascadeType.ALL)
+	private List<Ticket> ticketList;
 }

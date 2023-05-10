@@ -20,7 +20,7 @@ public class ShowController {
 
 	}
 
-	@GetMapping("get_all_shows")
+	@GetMapping("getShows")
 	public List<ShowResponseDto> getAllShowsOfAMovie(@RequestParam("id") int movieId) {
 		return showService.getAllShowsForAMovie(movieId);
 

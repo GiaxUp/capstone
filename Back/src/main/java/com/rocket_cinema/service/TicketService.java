@@ -24,7 +24,7 @@ public class TicketService {
 		List<String> requestedSeats = bookTicketRequestDto.getRequestedSeats();
 		Show show = showRepository.findById(bookTicketRequestDto.getShowId()).get();
 		User user = userRepository.findById(bookTicketRequestDto.getUserId()).get();
-		
+
 		// List that desribes our booked seats
 		List<ShowSeat> bookedSeats = new ArrayList<>();
 		// We need show seats for checking whether available or not

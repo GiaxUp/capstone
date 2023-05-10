@@ -16,11 +16,11 @@ public class TicketController {
 		try {
 			return ticketService.bookTicket(bookTicketRequestDto);
 		} catch (Exception e) {
-			return "requested seats are not available!";
+			return "Requested seats are not available!";
 		}
 	}
 
-	@PostMapping("cancel")
+	@PostMapping("/cancel")
 	public int canTicket(@RequestParam("id") int ticketId) {
 		return ticketService.cancelTicket(ticketId);
 	}

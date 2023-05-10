@@ -26,7 +26,7 @@ public class UserController {
 		return userService.getAllUserBookedTicketsInfo(userId);
 	}
 
-	@GetMapping("/get_user_by_name")
+	@GetMapping("/getUser")
 	public UserResponseDto findByName(@RequestParam("name") String name) {
 		return userService.getUserByName(name);
 	}

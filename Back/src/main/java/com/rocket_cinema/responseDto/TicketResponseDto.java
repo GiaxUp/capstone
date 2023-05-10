@@ -13,10 +13,10 @@ import java.time.LocalTime;
 @AllArgsConstructor
 @NoArgsConstructor
 public class TicketResponseDto {
-    private String movieName;
-    private String theaterName;
-    private LocalTime showTime;
-    private String seatNo;
-    private SeatType seatType;
-    private int ticketAmount;
+	private String movieName;
+	private String theaterName;
+	private LocalTime showTime;
+	private String seatNo;
+	private SeatType seatType;
+	private int ticketAmount;
 }

@@ -13,7 +13,7 @@ import java.time.LocalTime;
 @AllArgsConstructor
 @NoArgsConstructor
 public class ShowResponseDto {
-    private LocalDate showDate;
-    private LocalTime showTime;
-    private String movieName;
+	private LocalDate showDate;
+	private LocalTime showTime;
+	private String movieName;
 }

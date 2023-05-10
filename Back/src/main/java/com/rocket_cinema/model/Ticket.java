@@ -8,25 +8,26 @@ import lombok.NoArgsConstructor;
 
 import java.util.Date;
 import java.util.List;
+
 @Entity
-@Table(name="ticket")
+@Table(name = "ticket")
 @Builder
 @Data
 @AllArgsConstructor
 @NoArgsConstructor
 public class Ticket {
-    @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private int id;
-    private String allotedSeats;
-    private int amount;
-    private Date booked_at;
-    @ManyToOne
-    @JoinColumn
-    private User user;
-    @ManyToOne
-    @JoinColumn
-    private Show show;
-    @OneToMany(mappedBy = "ticket",cascade = CascadeType.ALL)
-    List<ShowSeat> showSeatList;
+	@Id
+	@GeneratedValue(strategy = GenerationType.IDENTITY)
+	private int id;
+	private String allotedSeats;
+	private int amount;
+	private Date booked_at;
+	@ManyToOne
+	@JoinColumn
+	private User user;
+	@ManyToOne
+	@JoinColumn
+	private Show show;
+	@OneToMany(mappedBy = "ticket", cascade = CascadeType.ALL)
+	List<ShowSeat> showSeatList;
 }
