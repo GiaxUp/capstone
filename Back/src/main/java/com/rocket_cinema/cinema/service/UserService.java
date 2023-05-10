@@ -20,14 +20,14 @@ public class UserService {
         // Verifica se l'utente esiste già nel database
         if (userRepository.findByUsername(username) != null) {
             throw new RuntimeException("Username already exists");
-//        }
-//
-//        // Crea un nuovo utente
-//        User user = new User(null, username, password); // ****DA FIXARE****
-//        user.setUsername(username);
-//        user.setPassword(passwordEncoder.encode(password));
-//
-//        // Salva l'utente nel database
-//        return userRepository.save(user);
-//    }
-//}
+        }
+
+        // Crea un nuovo utente
+        User user = new User(null, username, password); // ****DA FIXARE****
+        user.setUsername(username);
+        user.setPassword(passwordEncoder.encode(password));
+
+        // Salva l'utente nel database
+        return userRepository.save(user);
+    }
+}
