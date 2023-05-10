@@ -22,17 +22,13 @@ public class TicketService {
 
 	public String bookTicket(BookTicketRequestDto bookTicketRequestDto) throws Exception {
 		List<String> requestedSeats = bookTicketRequestDto.getRequestedSeats();
-
 		Show show = showRepository.findById(bookTicketRequestDto.getShowId()).get();
-
 		User user = userRepository.findById(bookTicketRequestDto.getUserId()).get();
-
+		
 		// List that desribes our booked seats
 		List<ShowSeat> bookedSeats = new ArrayList<>();
-
 		// We need show seats for checking whether available or not
 		List<ShowSeat> showSeatList = show.getShowSeatList();
-
 		// We need to check seats requested wheteher it is avalaible or not
 		for (ShowSeat showSeat : showSeatList) {
 			String seatNo = showSeat.getSeatNo();
@@ -48,12 +44,10 @@ public class TicketService {
 		}
 
 		// we came here that means requested seats are available and now we can
-		// calculate amount to be paid
-		// so generating ticket
+		// calculate amount to be paid. So generating ticket
 		double amount = 0;
 		double mul = show.getMultiplier();
 		String allotedSeats = "";
-
 		Ticket ticket = new Ticket();
 		ticket.setUser(user);
 		ticket.setShow(show);
@@ -70,18 +64,16 @@ public class TicketService {
 			if (bookedseat.getSeatNo().charAt(0) == '1') // Classic seat cost 10
 			{
 				amount += 10 * mul;
-
 			} else // Premium seat cost 20
 			{
 				amount += 20 * mul;
 			}
-
 		}
 		ticket.setAmount((int) amount);
 		ticket.setShowSeatList(bookedSeats);
 		ticket.setAllotedSeats(allotedSeats);
 
-		// bidirectional mapping part pending
+		// Bidirectional mapping part pending
 		user.getTicketList().add(ticket);
 
 		ticketRepository.save(ticket);

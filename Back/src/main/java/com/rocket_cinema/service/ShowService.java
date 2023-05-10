@@ -23,32 +23,28 @@ public class ShowService {
 	ShowRepository showRepository;
 
 	public String addShow(ShowRequestDto showRequestDto) {
-// creating showEntity
+		// Creating showEntity
 		Show show = Show.builder().ShowDate(showRequestDto.getShowDate()).showTime(showRequestDto.getShowTime())
 				.multiplier(showRequestDto.getMultiplier()).build();
-		// getting movie by movie name
+		// Getting movie by movie name
 		Movie movie = movieRepository.findByMovieName(showRequestDto.getMovieName());
-		// getting theater by theaterid
+		// Getting theater by theaterID
 		Theater theater = theaterRepository.findById(showRequestDto.getTheaterId()).get();
 		show.setMovie(movie);
 		show.setTheater(theater);
-		// setting show for movie and theater for bidirectional mapping
+		// Setting show for movie and theater for bidirectional mapping
 		movie.getShowList().add(show);
 		theater.getShowList().add(show);
-
-		// now creating showseats since show will determine showseats
+		// Now creating showseats since show will determine showseats
 		List<ShowSeat> showSeatList = createShowSeat(theater.getTheaterSeatList());
-
 		show.setShowSeatList(showSeatList);
-		// for each showseat we need to set the show to which it belongs
+		// For each showseat we need to set the show to which it belongs
 		for (ShowSeat showSeat : showSeatList) {
 			showSeat.setShow(show);
 		}
-
-		theaterRepository.save(theater);// saving the upadted with showslist
+		theaterRepository.save(theater); // Saving the upadted with showslist
 		movieRepository.save(movie);
-		// showRepository.save(show);// not saving since movie is parent and it is saved
-		return "show added successfully";
+		return "Show added successfully!";
 
 	}
 
@@ -59,16 +55,12 @@ public class ShowService {
 
 			ShowSeat showSeat = ShowSeat.builder().seatNo(theaterSeat.getSeatNo()).seatType(theaterSeat.getSeatType())
 					.build();
-
 			// boolean booked = false;
-
 			// showSeat.setBooked(booked);
 			showSeatList.add(showSeat);
-
 		}
 		showSeatRepository.saveAll(showSeatList);
 		return showSeatList;
-
 	}
 
 	public List<ShowResponseDto> getAllShowsForAMovie(int movieId) {
@@ -79,4 +71,3 @@ public class ShowService {
 		return showResponseDtoList;
 	}
 }
-// here we can also check that show date > movie release date that can be checked which  have not done here

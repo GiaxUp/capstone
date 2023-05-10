@@ -22,7 +22,7 @@ public class MovieService {
 		Movie movie = Movie.builder().movieName(movieRequestDto.getMovieName()).duration(movieRequestDto.getDuration())
 				.releaseDate(movieRequestDto.getReleaseDate()).build();
 		movieRepository.save(movie);
-		return "movie added successfully";
+		return "Movie added successfully!";
 	}
 
 	public List<String> getListOfTheatersForAMovie(String movieName) {
