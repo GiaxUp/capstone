@@ -19,8 +19,6 @@ public class UserService {
 	@Autowired
 	UserRepository userRepository;
 
-	
-
 	public List<TicketResponseDto> getAllUserBookedTicketsInfo(Long userId) {
 		User user = userRepository.findById(userId).get();
 		List<Ticket> userTickets = user.getTicketList();

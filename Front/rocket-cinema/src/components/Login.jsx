@@ -1,13 +1,25 @@
 import React, { useState } from "react";
+import { useNavigate } from "react-router-dom";
 import axios from "axios";
+import { Alert, Snackbar } from "@mui/material";
 import "../style/Login.css";
 import "../style/Background.css";
 
 export default function Login() {
   let [authMode, setAuthMode] = useState("signin");
+  let [name, setName] = useState("");
   let [username, setUsername] = useState("");
+  let [email, setEmail] = useState("");
   let [password, setPassword] = useState("");
-  let [fullName, setFullName] = useState("");
+  let [showAlert, setShowAlert] = useState(false);
+  let [alertSeverity, setAlertSeverity] = useState("success");
+  let [alertMessage, setAlertMessage] = useState("");
+
+  const navigate = useNavigate();
+
+  const handleAlertClose = () => {
+    setShowAlert(false);
+  };
 
   const changeAuthMode = () => {
     setAuthMode(authMode === "signin" ? "signup" : "signin");
@@ -21,38 +33,63 @@ export default function Login() {
     setPassword(e.target.value);
   };
 
-  const handleFullNameChange = (e) => {
-    setFullName(e.target.value);
+  const handleNameChange = (e) => {
+    setName(e.target.value);
+  };
+
+  const handleEmailChange = (e) => {
+    setEmail(e.target.value);
   };
 
   const handleSubmit = (e) => {
     e.preventDefault();
     if (authMode === "signin") {
-      // Effettua la chiamata per l'accesso
       signInUser(username, password);
     } else {
-      // Effettua la chiamata per la registrazione
-      signUpUser(fullName, username, password);
+      signUpUser(name, username, email, password);
     }
   };
 
   const signInUser = async (username, password) => {
     try {
-      const response = await axios.post("/api/login", { username, password });
-      // Effettua le operazioni necessarie dopo l'accesso
+      const response = await axios.post("http://localhost:8080/api/auth/login", { username, password });
       console.log("Accesso effettuato:", response.data);
+      setAlertSeverity("success");
+      setAlertMessage("Login successful, enjoy the site!");
+      setShowAlert(true);
+      setTimeout(() => {
+        handleAlertClose();
+        navigate("/home");
+      }, 3000);
     } catch (error) {
       console.error("Errore durante l'accesso:", error);
+      setAlertSeverity("error");
+      setAlertMessage("Error during login, try again!");
+      setShowAlert(true);
+      setTimeout(() => {
+        handleAlertClose();
+      }, 3000);
     }
   };
 
-  const signUpUser = async (fullName, username, password) => {
+  const signUpUser = async (name, username, email, password) => {
     try {
-      const response = await axios.post("/api/signup", { fullName, username, password });
-      // Effettua le operazioni necessarie dopo la registrazione
+      const response = await axios.post("http://localhost:8080/api/auth/register", { name, username, email, password });
       console.log("Registrazione effettuata:", response.data);
+      setAlertSeverity("success");
+      setAlertMessage("Registration successful, now you can login!");
+      setShowAlert(true);
+      setTimeout(() => {
+        handleAlertClose();
+      }, 3000);
     } catch (error) {
       console.error("Errore durante la registrazione:", error);
+      setAlertSeverity("error");
+      setAlertMessage("Error during registration, try again!");
+      setShowAlert(true);
+      setTimeout(() => {
+        handleAlertClose();
+      }, 3000);
     }
   };
 
@@ -61,6 +98,11 @@ export default function Login() {
       <div className="Auth-form-container">
         <form className="Auth-form" onSubmit={handleSubmit}>
           <div className="Auth-form-content">
+            <Snackbar open={showAlert} autoHideDuration={3000} onClose={handleAlertClose}>
+              <Alert severity={alertSeverity} icon={false}>
+                {alertMessage}
+              </Alert>
+            </Snackbar>
             <h3 className="Auth-form-title">Login</h3>
             <div className="text-center">
               Not registered yet?{" "}
@@ -93,6 +135,11 @@ export default function Login() {
     <div className="Auth-form-container">
       <form className="Auth-form" onSubmit={handleSubmit}>
         <div className="Auth-form-content">
+          <Snackbar open={showAlert} autoHideDuration={3000} onClose={handleAlertClose}>
+            <Alert severity={alertSeverity} icon={false}>
+              {alertMessage}
+            </Alert>
+          </Snackbar>
           <h3 className="Auth-form-title">Register for free!</h3>
           <div className="text-center">
             Already registered?{" "}
@@ -103,11 +150,15 @@ export default function Login() {
           </div>
           <div className="form-group mt-3">
             <label>Full Name</label>
-            <input type="text" className="form-control mt-1" placeholder="e.g Paolo Fasulli" onChange={handleFullNameChange} />
+            <input type="text" className="form-control mt-1" placeholder="e.g Paolo Fasulli" onChange={handleNameChange} />
           </div>
           <div className="form-group mt-3">
             <label>Username</label>
             <input type="text" className="form-control mt-1" placeholder="Your username" onChange={handleUsernameChange} />
+          </div>
+          <div className="form-group mt-3">
+            <label>Email</label>
+            <input type="email" className="form-control mt-1" placeholder="Your email" onChange={handleEmailChange} />
           </div>
           <div className="form-group mt-3">
             <label>Password</label>

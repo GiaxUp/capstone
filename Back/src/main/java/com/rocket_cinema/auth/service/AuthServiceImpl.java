@@ -23,92 +23,82 @@ import com.rocket_cinema.auth.repository.UserRepository;
 import com.rocket_cinema.auth.security.JwtTokenProvider;
 import com.rocket_cinema.model.Ticket;
 
-
 @Service
 public class AuthServiceImpl implements AuthService {
 
-    private AuthenticationManager authenticationManager;
-    private UserRepository userRepository;
-    private RoleRepository roleRepository;
-    private PasswordEncoder passwordEncoder;
-    private JwtTokenProvider jwtTokenProvider;
+	private AuthenticationManager authenticationManager;
+	private UserRepository userRepository;
+	private RoleRepository roleRepository;
+	private PasswordEncoder passwordEncoder;
+	private JwtTokenProvider jwtTokenProvider;
 
+	public AuthServiceImpl(AuthenticationManager authenticationManager, UserRepository userRepository,
+			RoleRepository roleRepository, PasswordEncoder passwordEncoder, JwtTokenProvider jwtTokenProvider) {
+		this.authenticationManager = authenticationManager;
+		this.userRepository = userRepository;
+		this.roleRepository = roleRepository;
+		this.passwordEncoder = passwordEncoder;
+		this.jwtTokenProvider = jwtTokenProvider;
+	}
 
-    public AuthServiceImpl(AuthenticationManager authenticationManager,
-                           UserRepository userRepository,
-                           RoleRepository roleRepository,
-                           PasswordEncoder passwordEncoder,
-                           JwtTokenProvider jwtTokenProvider) {
-        this.authenticationManager = authenticationManager;
-        this.userRepository = userRepository;
-        this.roleRepository = roleRepository;
-        this.passwordEncoder = passwordEncoder;
-        this.jwtTokenProvider = jwtTokenProvider;
-    }
+	@Override
+	public String login(LoginDto loginDto) {
 
-    @Override
-    public String login(LoginDto loginDto) {
-        
-    	Authentication authentication = authenticationManager.authenticate(
-        		new UsernamePasswordAuthenticationToken(
-        				loginDto.getUsername(), loginDto.getPassword()
-        		)
-        ); 
-    	
-        SecurityContextHolder.getContext().setAuthentication(authentication);
+		Authentication authentication = authenticationManager
+				.authenticate(new UsernamePasswordAuthenticationToken(loginDto.getUsername(), loginDto.getPassword()));
 
-        String token = jwtTokenProvider.generateToken(authentication);
+		SecurityContextHolder.getContext().setAuthentication(authentication);
 
-        return token;
-    }
+		String token = jwtTokenProvider.generateToken(authentication);
 
-    @Override
-    public String register(RegisterDto registerDto) {
+		return token;
+	}
 
-        // add check for username exists in database
-        if(userRepository.existsByUsername(registerDto.getUsername())){
-            throw new MyAPIException(HttpStatus.BAD_REQUEST, "Username is already exists!.");
-        }
+	@Override
+	public String register(RegisterDto registerDto) {
 
-        // add check for email exists in database
-        if(userRepository.existsByEmail(registerDto.getEmail())){
-            throw new MyAPIException(HttpStatus.BAD_REQUEST, "Email is already exists!.");
-        }
+		// Check if username exists in the database
+		if (userRepository.existsByUsername(registerDto.getUsername())) {
+			throw new MyAPIException(HttpStatus.BAD_REQUEST, "Username already exists!");
+		}
 
-        User user = new User();
-        System.out.println(registerDto);
-        user.setName(registerDto.getName());
-        System.out.println(registerDto);
-        user.setUsername(registerDto.getUsername());
-        System.out.println(registerDto);
-        user.setEmail(registerDto.getEmail());
-        System.out.println(registerDto);
-        user.setPassword(passwordEncoder.encode(registerDto.getPassword()));
-        System.out.println(registerDto);
-        Set<Role> roles = new HashSet<>();
-        user.setTicketList(new ArrayList<Ticket>());
-        System.out.println(user);
+		// add check for email exists in database
+		if (userRepository.existsByEmail(registerDto.getEmail())) {
+			throw new MyAPIException(HttpStatus.BAD_REQUEST, "Email already exists!");
+		}
+
+		User user = new User();
+		user.setName(registerDto.getName());
+		user.setUsername(registerDto.getUsername());
+		user.setEmail(registerDto.getEmail());
+		user.setPassword(passwordEncoder.encode(registerDto.getPassword()));
+		Set<Role> roles = new HashSet<>();
+		user.setTicketList(new ArrayList<Ticket>());
+		System.out.println(user);
 //        if(registerDto.getRoles() != null) {
 //	        registerDto.getRoles().forEach(role -> {
 //	        	Role userRole = roleRepository.findByRoleName(getRole(role)).get();
 //	        	roles.add(userRole);
 //	        });
 //        } else {
-        	Role userRole = roleRepository.findByRoleName(ERole.ROLE_USER).get();
-        	roles.add(userRole);
-      //  }
-        
-        user.setRoles(roles);
-        System.out.println(user);
-        userRepository.save(user);
+		Role userRole = roleRepository.findByRoleName(ERole.ROLE_USER).get();
+		roles.add(userRole);
+//  	  }
 
-        return "User registered successfully!.";
-    }
-    
-    public ERole getRole(String role) {
-    	if(role.equals("ROLE_ADMIN")) return ERole.ROLE_ADMIN;
-    	else if(role.equals("ROLE_MODERATOR")) return ERole.ROLE_MODERATOR;
-    	else return ERole.ROLE_USER;
-    }
-    
+		user.setRoles(roles);
+		System.out.println(user);
+		userRepository.save(user);
+
+		return "User registered successfully!";
+	}
+
+	public ERole getRole(String role) {
+		if (role.equals("ROLE_ADMIN"))
+			return ERole.ROLE_ADMIN;
+		else if (role.equals("ROLE_MODERATOR"))
+			return ERole.ROLE_MODERATOR;
+		else
+			return ERole.ROLE_USER;
+	}
+
 }

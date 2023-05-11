@@ -19,8 +19,8 @@ public class RegisterDto {
     private String username;
     private String email;
     private String password;
-    // private Date createdOn; // No need to set it
-    // private Date updatedOn; // No need to set it
-    // private Set<String> roles;
+    private Date createdOn; // No need to set it
+    private Date updatedOn; // No need to set it
+    private Set<String> roles;
     
 }

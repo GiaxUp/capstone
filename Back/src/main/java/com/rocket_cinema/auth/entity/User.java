@@ -17,7 +17,6 @@ import org.hibernate.annotations.UpdateTimestamp;
 
 import com.rocket_cinema.model.Ticket;
 
-
 @Setter
 @Getter
 @NoArgsConstructor
@@ -28,30 +27,27 @@ import com.rocket_cinema.model.Ticket;
 		@UniqueConstraint(columnNames = "email") })
 public class User {
 
-    @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long id;
-    private String name;
-    @Column(nullable = false, unique = true)
-    private String username;
-    @Column(nullable = false, unique = true)
-    private String email;
-    @Column(nullable = false)
-    private String password;
-    @CreationTimestamp
-	@Temporal(value = TemporalType.TIMESTAMP) // timestamp means date as well as time
-	private Date createdOn; // these will automatically set no need to set manually due to annotation sam
-							// with updatedOn
+	@Id
+	@GeneratedValue(strategy = GenerationType.IDENTITY)
+	private Long id;
+	private String name;
+	@Column(nullable = false, unique = true)
+	private String username;
+	@Column(nullable = false, unique = true)
+	private String email;
+	@Column(nullable = false)
+	private String password;
+	@CreationTimestamp
+	@Temporal(value = TemporalType.TIMESTAMP) // Timestamp = date as well as time
+	// These will automatically set no need to set manually due to annotation on updatedOn
+	private Date createdOn;
 	@UpdateTimestamp
 	@Temporal(value = TemporalType.TIMESTAMP)
 	private Date updatedOn;
 	@OneToMany(mappedBy = "user", cascade = CascadeType.ALL)
 	private List<Ticket> ticketList;
-	
-    @ManyToMany(fetch = FetchType.EAGER, cascade = CascadeType.MERGE)
-    @JoinTable(name = "users_roles",
-            joinColumns = @JoinColumn(name = "user_id", referencedColumnName = "id"),
-            inverseJoinColumns = @JoinColumn(name = "role_id", referencedColumnName = "id")
-    )
-    private Set<Role> roles = new HashSet<>();
+
+	@ManyToMany(fetch = FetchType.EAGER, cascade = CascadeType.MERGE)
+	@JoinTable(name = "users_roles", joinColumns = @JoinColumn(name = "user_id", referencedColumnName = "id"), inverseJoinColumns = @JoinColumn(name = "role_id", referencedColumnName = "id"))
+	private Set<Role> roles = new HashSet<>();
 }
