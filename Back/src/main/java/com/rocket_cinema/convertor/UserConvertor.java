@@ -17,7 +17,7 @@ public class UserConvertor {
 			String seatsofusers = ticket.getAllocatedSeats();
 			seats.add(seatsofusers);
 		}
-		UserResponseDto userResponseDto = UserResponseDto.builder().userName(user.getName())
+		UserResponseDto userResponseDto = UserResponseDto.builder().username(user.getUsername())
 				.password(user.getPassword()).seats(seats).build();
 		return userResponseDto;
 

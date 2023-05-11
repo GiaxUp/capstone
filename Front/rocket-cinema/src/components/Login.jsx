@@ -5,7 +5,7 @@ import "../style/Background.css";
 
 export default function Login() {
   let [authMode, setAuthMode] = useState("signin");
-  let [email, setEmail] = useState("");
+  let [username, setUsername] = useState("");
   let [password, setPassword] = useState("");
   let [fullName, setFullName] = useState("");
 
@@ -13,8 +13,8 @@ export default function Login() {
     setAuthMode(authMode === "signin" ? "signup" : "signin");
   };
 
-  const handleEmailChange = (e) => {
-    setEmail(e.target.value);
+  const handleUsernameChange = (e) => {
+    setUsername(e.target.value);
   };
 
   const handlePasswordChange = (e) => {
@@ -29,16 +29,16 @@ export default function Login() {
     e.preventDefault();
     if (authMode === "signin") {
       // Effettua la chiamata per l'accesso
-      signInUser(email, password);
+      signInUser(username, password);
     } else {
       // Effettua la chiamata per la registrazione
-      signUpUser(fullName, email, password);
+      signUpUser(fullName, username, password);
     }
   };
 
-  const signInUser = async (email, password) => {
+  const signInUser = async (username, password) => {
     try {
-      const response = await axios.post("/api/login", { email, password });
+      const response = await axios.post("/api/login", { username, password });
       // Effettua le operazioni necessarie dopo l'accesso
       console.log("Accesso effettuato:", response.data);
     } catch (error) {
@@ -46,15 +46,16 @@ export default function Login() {
     }
   };
 
-  const signUpUser = async (fullName, email, password) => {
+  const signUpUser = async (fullName, username, password) => {
     try {
-      const response = await axios.post("/api/signup", { fullName, email, password });
+      const response = await axios.post("/api/signup", { fullName, username, password });
       // Effettua le operazioni necessarie dopo la registrazione
       console.log("Registrazione effettuata:", response.data);
     } catch (error) {
       console.error("Errore durante la registrazione:", error);
     }
   };
+
   if (authMode === "signin") {
     return (
       <div className="Auth-form-container">
@@ -69,12 +70,12 @@ export default function Login() {
               now!
             </div>
             <div className="form-group mt-3">
-              <label>Email</label>
-              <input type="email" className="form-control mt-1" placeholder="youremail@example.com" />
+              <label>Username</label>
+              <input type="text" className="form-control mt-1" placeholder="Your username" onChange={handleUsernameChange} />
             </div>
             <div className="form-group mt-3">
               <label>Password</label>
-              <input type="password" className="form-control mt-1" placeholder="***********" />
+              <input type="password" className="form-control mt-1" placeholder="***********" onChange={handlePasswordChange} />
             </div>
             <div className="d-grid gap-2 mt-3">
               <button type="submit" className="btn btn-primary">
@@ -102,15 +103,15 @@ export default function Login() {
           </div>
           <div className="form-group mt-3">
             <label>Full Name</label>
-            <input type="text" className="form-control mt-1" placeholder="e.g Paolo Fasulli" />
+            <input type="text" className="form-control mt-1" placeholder="e.g Paolo Fasulli" onChange={handleFullNameChange} />
           </div>
           <div className="form-group mt-3">
-            <label>Email address</label>
-            <input type="email" className="form-control mt-1" placeholder="youremail@example.com" />
+            <label>Username</label>
+            <input type="text" className="form-control mt-1" placeholder="Your username" onChange={handleUsernameChange} />
           </div>
           <div className="form-group mt-3">
             <label>Password</label>
-            <input type="password" className="form-control mt-1" placeholder="***********" />
+            <input type="password" className="form-control mt-1" placeholder="***********" onChange={handlePasswordChange} />
           </div>
           <div className="d-grid gap-2 mt-3 mb-4">
             <button type="submit" className="btn btn-primary">

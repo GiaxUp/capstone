@@ -20,7 +20,7 @@ public class UserService {
 	UserRepository userRepository;
 
 	public String addUser(UserRequestDto userRequestDto) {
-		User user = User.builder().name(userRequestDto.getName()).password(userRequestDto.getPassword()).build();
+		User user = User.builder().username(userRequestDto.getUsername()).password(userRequestDto.getPassword()).build();
 		try {
 			userRepository.save(user);
 
@@ -40,8 +40,8 @@ public class UserService {
 
 	}
 
-	public UserResponseDto getUserByName(String name) {
-		User user = userRepository.findUserByName(name);
+	public UserResponseDto getUserByName(String username) {
+		User user = userRepository.findUserByUsername(username);
 		UserResponseDto userResponseDto = UserConvertor.convertEntityToDto(user);
 		return userResponseDto;
 	}

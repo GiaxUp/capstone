@@ -12,7 +12,7 @@ import java.util.List;
 @AllArgsConstructor
 @NoArgsConstructor
 public class UserResponseDto {
-	private String userName;
+	private String username;
 	private String password;
 
 	List<String> seats;
