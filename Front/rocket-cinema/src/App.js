@@ -1,7 +1,7 @@
 import React from "react";
 import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
 import { createTheme, ThemeProvider } from "@mui/material/styles";
-import Login from "../src/components/Login.jsx";
+import Login from "./components/Login.jsx";
 import Home from "../src/components/Home.jsx";
 import AnimatedBackground from "../src/components/AnimatedBackground.jsx";
 

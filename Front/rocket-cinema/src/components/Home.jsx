@@ -1,14 +1,10 @@
 import React from "react";
-import "../style/Login.css";
-import "../style/Background.css";
-import Carousel from "./Carousel";
+import FilmCarousel from "./FilmCarousel";
 
 const Home = () => {
-  return (
-    <div className="text-center prio">
-      <Carousel />
-    </div>
-  );
+  return;
+  <h1>Sei nella home!</h1>;
+  // <FilmCarousel />;
 };
 
 export default Home;
