@@ -9,6 +9,8 @@ import lombok.NoArgsConstructor;
 import java.util.Date;
 import java.util.List;
 
+import com.rocket_cinema.auth.entity.User;
+
 @Entity
 @Table(name = "ticket")
 @Builder

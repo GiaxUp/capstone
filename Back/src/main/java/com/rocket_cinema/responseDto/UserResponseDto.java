@@ -14,6 +14,5 @@ import java.util.List;
 public class UserResponseDto {
 	private String username;
 	private String password;
-
 	List<String> seats;
 }

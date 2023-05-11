@@ -1,7 +1,7 @@
 package com.rocket_cinema.convertor;
 
+import com.rocket_cinema.auth.entity.User;
 import com.rocket_cinema.model.Ticket;
-import com.rocket_cinema.model.User;
 import com.rocket_cinema.responseDto.UserResponseDto;
 
 import java.util.ArrayList;

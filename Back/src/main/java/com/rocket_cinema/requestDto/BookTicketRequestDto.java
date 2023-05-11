@@ -9,6 +9,6 @@ public class BookTicketRequestDto {
 	private List<String> requestedSeats;
 	private int showId;
 
-	private int userId;
+	private Long userId;
 
 }

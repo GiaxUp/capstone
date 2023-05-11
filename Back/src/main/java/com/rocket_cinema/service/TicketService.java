@@ -1,5 +1,7 @@
 package com.rocket_cinema.service;
 
+import com.rocket_cinema.auth.entity.User;
+import com.rocket_cinema.auth.repository.UserRepository;
 import com.rocket_cinema.model.*;
 import com.rocket_cinema.repository.*;
 import com.rocket_cinema.requestDto.BookTicketRequestDto;
@@ -102,7 +104,7 @@ public class TicketService {
 		int fine = (totalamount * 20) / 100;
 		// free ticket from user
 		User user = ticket.getUser();
-		user.setUpdatedOn(new Date());
+		//user.setUpdatedOn(new Date());
 		List<Ticket> userTickets = user.getTicketList();
 //      for(TicketEntity ticket1:userTickets )
 //      {
