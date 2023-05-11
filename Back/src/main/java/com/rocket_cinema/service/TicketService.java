@@ -71,7 +71,7 @@ public class TicketService {
 		}
 		ticket.setAmount((int) amount);
 		ticket.setShowSeatList(bookedSeats);
-		ticket.setAllotedSeats(allotedSeats);
+		ticket.setAllocatedSeats(allotedSeats);
 
 		// Bidirectional mapping part pending
 		user.getTicketList().add(ticket);
@@ -86,9 +86,9 @@ public class TicketService {
 		Ticket ticket = ticketRepository.findById(ticketId).get();
 
 		// get the seats which were booked
-		String bookedSeats = ticket.getAllotedSeats();
+		String bookedSeats = ticket.getAllocatedSeats();
 		// removing alloted seats
-		ticket.setAllotedSeats("");
+		ticket.setAllocatedSeats("");
 
 		List<ShowSeat> showBookedSeats = ticket.getShowSeatList();
 

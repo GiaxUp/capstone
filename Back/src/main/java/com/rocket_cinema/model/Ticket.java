@@ -19,7 +19,7 @@ public class Ticket {
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private int id;
-	private String allotedSeats;
+	private String allocatedSeats;
 	private int amount;
 	private Date booked_at;
 	@ManyToOne

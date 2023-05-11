@@ -12,12 +12,13 @@ public class TheaterController {
 	@Autowired
 	TheaterService theaterService;
 
+	// Add a new theater
 	@PostMapping("/add")
 	public String createTheater(@RequestBody() TheaterRequestDto theaterRequestDto) {
 		return theaterService.createTheater(theaterRequestDto);
 	}
 
-	// get theater by theaterid
+	// Get a single theater by ID
 	@GetMapping("/getTheater")
 	public TheaterResponseDto getbyId(@RequestParam("id") int id) {
 		return theaterService.getbyId(id);

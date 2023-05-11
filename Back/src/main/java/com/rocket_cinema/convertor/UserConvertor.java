@@ -14,7 +14,7 @@ public class UserConvertor {
 		List<Ticket> usersTickets = user.getTicketList();
 		List<String> seats = new ArrayList<>();
 		for (Ticket ticket : usersTickets) {
-			String seatsofusers = ticket.getAllotedSeats();
+			String seatsofusers = ticket.getAllocatedSeats();
 			seats.add(seatsofusers);
 		}
 		UserResponseDto userResponseDto = UserResponseDto.builder().userName(user.getName())

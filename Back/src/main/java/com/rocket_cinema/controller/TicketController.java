@@ -11,6 +11,7 @@ public class TicketController {
 	@Autowired
 	TicketService ticketService;
 
+	// Book a ticket, select a seat
 	@PostMapping("/book")
 	public String bookTicket(@RequestBody() BookTicketRequestDto bookTicketRequestDto) {
 		try {
@@ -20,6 +21,7 @@ public class TicketController {
 		}
 	}
 
+	// Cancel a booked ticket
 	@PostMapping("/cancel")
 	public int canTicket(@RequestParam("id") int ticketId) {
 		return ticketService.cancelTicket(ticketId);

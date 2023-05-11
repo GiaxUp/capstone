@@ -19,14 +19,14 @@ public class MovieController {
         return movieService.addMovie(movieRequestDto);
     }
 
-    // get movie by name
+    // Get movie by name
     @GetMapping("/getMovie")
     public List<MovieResponseDto> getMovieByName(@RequestParam("name")String movieName)
     {
               return movieService.getMovieByName(movieName);
     }
 
-
+    // Get a list of theaters that plays a specific movie
     @GetMapping("/getTheaters")
     public List<String> getListOfTheaters(@RequestParam("movie") String movieName) {
         return movieService.getListOfTheatersForAMovie(movieName);

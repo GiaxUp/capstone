@@ -13,13 +13,15 @@ import java.util.List;
 public class ShowController {
 	@Autowired
 	ShowService showService;
-
+	
+	// Add show
 	@PostMapping("/add")
 	public String addShow(@RequestBody() ShowRequestDto showRequestDto) {
 		return showService.addShow(showRequestDto);
 
 	}
-
+	
+	// Get all shows of a movie
 	@GetMapping("getShows")
 	public List<ShowResponseDto> getAllShowsOfAMovie(@RequestParam("id") int movieId) {
 		return showService.getAllShowsForAMovie(movieId);

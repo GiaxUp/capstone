@@ -15,7 +15,7 @@ public class TicketConvertor {
 			Show show = ticket.getShow();
 			TicketResponseDto ticketResponseDto = TicketResponseDto.builder().movieName(show.getMovie().getMovieName())
 					.theaterName(show.getTheater().getName()).showTime(show.getShowTime())
-					.seatNo(ticket.getAllotedSeats()).ticketAmount(ticket.getAmount()).build();
+					.seatNo(ticket.getAllocatedSeats()).ticketAmount(ticket.getAmount()).build();
 			ticketResponseDtos.add(ticketResponseDto);
 
 		}
