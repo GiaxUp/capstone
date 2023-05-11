@@ -23,6 +23,10 @@ export default function Login() {
 
   const changeAuthMode = () => {
     setAuthMode(authMode === "signin" ? "signup" : "signin");
+    setName("");
+    setUsername("");
+    setEmail("");
+    setPassword("");
   };
 
   const handleUsernameChange = (e) => {
@@ -113,11 +117,11 @@ export default function Login() {
             </div>
             <div className="form-group mt-3">
               <label>Username</label>
-              <input type="text" className="form-control mt-1" placeholder="Your username" onChange={handleUsernameChange} />
+              <input type="text" className="form-control mt-1" placeholder="Your username" value={username} onChange={handleUsernameChange} />
             </div>
             <div className="form-group mt-3">
               <label>Password</label>
-              <input type="password" className="form-control mt-1" placeholder="***********" onChange={handlePasswordChange} />
+              <input type="password" className="form-control mt-1" placeholder="***********" value={password} onChange={handlePasswordChange} />
             </div>
             <div className="d-grid gap-2 mt-3">
               <button type="submit" className="btn btn-primary">
@@ -150,19 +154,19 @@ export default function Login() {
           </div>
           <div className="form-group mt-3">
             <label>Full Name</label>
-            <input type="text" className="form-control mt-1" placeholder="e.g Paolo Fasulli" onChange={handleNameChange} />
+            <input type="text" className="form-control mt-1" placeholder="e.g Paolo Fasulli" value={name} onChange={handleNameChange} />
           </div>
           <div className="form-group mt-3">
             <label>Username</label>
-            <input type="text" className="form-control mt-1" placeholder="Your username" onChange={handleUsernameChange} />
+            <input type="text" className="form-control mt-1" placeholder="Your username" value={username} onChange={handleUsernameChange} />
           </div>
           <div className="form-group mt-3">
             <label>Email</label>
-            <input type="email" className="form-control mt-1" placeholder="Your email" onChange={handleEmailChange} />
+            <input type="email" className="form-control mt-1" placeholder="Your email" value={email} onChange={handleEmailChange} />
           </div>
           <div className="form-group mt-3">
             <label>Password</label>
-            <input type="password" className="form-control mt-1" placeholder="***********" onChange={handlePasswordChange} />
+            <input type="password" className="form-control mt-1" placeholder="***********" value={password} onChange={handlePasswordChange} />
           </div>
           <div className="d-grid gap-2 mt-3 mb-4">
             <button type="submit" className="btn btn-primary">
