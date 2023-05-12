@@ -35,7 +35,7 @@ const HeadMovies = () => {
 
   return (
     <div>
-      <h1>Movie Posters</h1>
+      <h1>Now in theaters</h1>
       <div className="movie-poster-container d-flex justify-content-center">
         {movies.slice(0, 5).map((movie) => (
           <div key={movie.id} className="movie-card">
