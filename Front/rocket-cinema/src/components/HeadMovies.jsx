@@ -1,9 +1,10 @@
 import React, { useEffect, useState } from "react";
 import "../style/HeadMovies.css";
 
+const API_KEY = process.env.API_KEY_BEARER;
+
 const HeadMovies = () => {
   const [movies, setMovies] = useState([]);
-  const API_KEY = process.env.API_KEY_BEARER;
 
   useEffect(() => {
     const options = {
