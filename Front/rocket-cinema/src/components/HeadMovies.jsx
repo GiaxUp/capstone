@@ -41,8 +41,8 @@ const HeadMovies = () => {
           <div key={movie.id} className="movie-card">
             <img src={`https://image.tmdb.org/t/p/w200${movie.poster_path}`} alt={movie.title} />
             <div className="movie-card-overlay">
-              <button className="btn btn-primary">Watch Trailer</button>
-              <button className="btn btn-secondary">Book Ticket</button>
+              <button className="btn btn-secondary">Watch Trailer</button>
+              <button className="btn btn-primary">Book Ticket</button>
             </div>
           </div>
         ))}
