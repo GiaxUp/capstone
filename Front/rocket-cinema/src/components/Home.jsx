@@ -1,10 +1,8 @@
 import React from "react";
-import FilmCarousel from "./FilmCarousel";
+import HeadMovies from "./HeadMovies";
 
 const Home = () => {
-  return;
-  <h1>Sei nella home!</h1>;
-  // <FilmCarousel />;
+  return <HeadMovies />;
 };
 
 export default Home;
