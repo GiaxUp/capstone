@@ -34,6 +34,7 @@ const HeadMovies = () => {
     fetchMovies();
   }, []);
 
+  // Da aggiornare con fetch mie
   return (
     <div>
       <h1>Now in theaters</h1>
