@@ -1,11 +1,13 @@
-import Button from "react-bootstrap/Button";
-import Container from "react-bootstrap/Container";
-import Form from "react-bootstrap/Form";
-import Nav from "react-bootstrap/Nav";
-import Navbar from "react-bootstrap/Navbar";
-import axios from "axios";
+import { Navbar, Container, Nav, NavDropdown, Form, Button } from "react-bootstrap";
+import { useSelector } from "react-redux";
+import "../style/Navbar.css";
 
 function TopNavbar() {
+  const loggedUser = useSelector((state) => state.auth.user);
+  const loggedUsername = sessionStorage.getItem("username");
+  const loggedName = sessionStorage.getItem("name");
+  const loggedEmail = sessionStorage.getItem("email");
+
   return (
     <Navbar bg="dark" expand="lg">
       <Container fluid>
@@ -24,12 +26,13 @@ function TopNavbar() {
             <Nav.Link href="#action2" style={{ color: "white", fontWeight: "bold" }}>
               Checkout
             </Nav.Link>
-            <Nav.Link href="#action4" style={{ color: "white", fontWeight: "bold" }}>
-              Profile
-            </Nav.Link>
+            <NavDropdown title={<span className="profile-title">{`My profile (${loggedUsername})`}</span>} id="basic-nav-dropdown" menuVariant="dark">
+              <NavDropdown.Item href="#profile">Profile</NavDropdown.Item>
+              <NavDropdown.Item href="#logout">Logout</NavDropdown.Item>
+            </NavDropdown>
           </Nav>
           <Form className="d-flex">
-            <Form.Control type="search" placeholder="Search" className="me-2" aria-label="Search" />
+            <Form.Control type="search" placeholder="Search movies..." className="me-2" aria-label="Search" />
             <Button variant="outline-success" style={{ backgroundColor: "#2dce89", borderColor: "#2dce89", color: "white", fontWeight: "bold" }}>
               Search
             </Button>

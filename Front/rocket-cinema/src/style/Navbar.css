@@ -1,0 +1,12 @@
+.profile-title {
+  font-weight: bold;
+  color: white;
+}
+
+.dropdown-toggle::after {
+  border-top-color: white !important;
+}
+
+.dropdown-item:hover {
+  background-color: initial !important;
+}

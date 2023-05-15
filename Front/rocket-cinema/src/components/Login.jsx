@@ -1,11 +1,20 @@
 import React, { useState } from "react";
 import { useNavigate } from "react-router-dom";
+import { useDispatch, useSelector } from "react-redux";
 import axios from "axios";
 import { Alert, Snackbar } from "@mui/material";
 import "../style/Login.css";
 import "../style/Background.css";
+import { loginSuccess, logout } from "../redux/actions/authActions";
 
 export default function Login() {
+  const dispatch = useDispatch();
+  const isAuthenticated = useSelector((state) => state.auth.isAuthenticated);
+  const loggedUser = useSelector((state) => state.auth.user);
+  const loggedUsername = sessionStorage.getItem("username");
+  const loggedName = sessionStorage.getItem("name");
+  const loggedEmail = sessionStorage.getItem("email");
+
   let [authMode, setAuthMode] = useState("signin");
   let [name, setName] = useState("");
   let [username, setUsername] = useState("");
@@ -48,53 +57,61 @@ export default function Login() {
   const handleSubmit = (e) => {
     e.preventDefault();
     if (authMode === "signin") {
-      signInUser(username, password);
+      dispatch(signInUser(username, password));
     } else {
-      signUpUser(name, username, email, password);
+      dispatch(signUpUser(name, username, email, password));
     }
   };
 
-  const signInUser = async (username, password) => {
-    try {
-      const response = await axios.post("http://localhost:8080/api/auth/login", { username, password });
-      console.log("Accesso effettuato:", response.data);
-      setAlertSeverity("success");
-      setAlertMessage("Login successful, enjoy the site!");
-      setShowAlert(true);
-      setTimeout(() => {
-        handleAlertClose();
-        navigate("/home");
-      }, 3000);
-    } catch (error) {
-      console.error("Errore durante l'accesso:", error);
-      setAlertSeverity("error");
-      setAlertMessage("Error during login, try again!");
-      setShowAlert(true);
-      setTimeout(() => {
-        handleAlertClose();
-      }, 3000);
-    }
+  const signInUser = (username, password) => {
+    return async (dispatch) => {
+      try {
+        const response = await axios.post("http://localhost:8080/api/auth/login", { username, password });
+        console.log("Accesso effettuato:", response.data);
+        dispatch(loginSuccess(response.data));
+        sessionStorage.setItem("username", response.data.username);
+        sessionStorage.setItem("email", response.data.email);
+        sessionStorage.setItem("name", response.data.name);
+        setAlertSeverity("success");
+        setAlertMessage("Login successful, enjoy the site " + response.data.username + "!"); // Restituisce l'username nell'alert
+        setShowAlert(true);
+        setTimeout(() => {
+          handleAlertClose();
+          navigate("/home");
+        }, 3000);
+      } catch (error) {
+        console.error("Errore durante l'accesso:", error);
+        setAlertSeverity("error");
+        setAlertMessage("Error during login, try again!");
+        setShowAlert(true);
+        setTimeout(() => {
+          handleAlertClose();
+        }, 3000);
+      }
+    };
   };
 
-  const signUpUser = async (name, username, email, password) => {
-    try {
-      const response = await axios.post("http://localhost:8080/api/auth/register", { name, username, email, password });
-      console.log("Registrazione effettuata:", response.data);
-      setAlertSeverity("success");
-      setAlertMessage("Registration successful, now you can login!");
-      setShowAlert(true);
-      setTimeout(() => {
-        handleAlertClose();
-      }, 3000);
-    } catch (error) {
-      console.error("Errore durante la registrazione:", error);
-      setAlertSeverity("error");
-      setAlertMessage("Error during registration, try again!");
-      setShowAlert(true);
-      setTimeout(() => {
-        handleAlertClose();
-      }, 3000);
-    }
+  const signUpUser = (name, username, email, password) => {
+    return async (dispatch) => {
+      try {
+        const response = await axios.post("http://localhost:8080/api/auth/register", { name, username, email, password });
+        console.log("Registrazione effettuata:", response.data);
+        setAlertSeverity("success");
+        setAlertMessage("Registration successful, now you can login!");
+        setShowAlert(true);
+        setTimeout(() => {
+          handleAlertClose();
+        }, 3000);
+      } catch (error) {
+        console.error("Errore durante la registrazione:", error);
+        setAlertSeverity("error");
+        setAlertMessage("Error during registration, try again!");
+        setShowAlert(true);
+        setTimeout(() => {
+          handleAlertClose();
+        }, 3000);
+      }
+    };
   };
 
   if (authMode === "signin") {
