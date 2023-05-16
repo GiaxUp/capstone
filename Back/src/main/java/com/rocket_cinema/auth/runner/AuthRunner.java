@@ -35,7 +35,8 @@ public class AuthRunner implements ApplicationRunner {
 	@Override
 	public void run(ApplicationArguments args) throws Exception {
 		System.out.println("Run...");
-		setRoleDefault();
+		//Scommentare la riga sotto se il database viene droppato
+		// setRoleDefault();
 		// setUserDefault();
 
 	}
@@ -66,14 +67,14 @@ public class AuthRunner implements ApplicationRunner {
 		userRole.add(user);
 	}
 
-	private void setUserDefault() {
-
-		Set<String> roleAdmin = new HashSet<>(
-				adminRole.stream().map(r -> r.getRoleName().toString()).collect(Collectors.toList()));
-		Set<String> roleModerator = new HashSet<>(
-				moderatorRole.stream().map(r -> r.getRoleName().toString()).collect(Collectors.toList()));
-		Set<String> roleUser = new HashSet<>(
-				userRole.stream().map(r -> r.getRoleName().toString()).collect(Collectors.toList()));
-	}
+//	private void setUserDefault() {
+//
+//		Set<String> roleAdmin = new HashSet<>(
+//				adminRole.stream().map(r -> r.getRoleName().toString()).collect(Collectors.toList()));
+//		Set<String> roleModerator = new HashSet<>(
+//				moderatorRole.stream().map(r -> r.getRoleName().toString()).collect(Collectors.toList()));
+//		Set<String> roleUser = new HashSet<>(
+//				userRole.stream().map(r -> r.getRoleName().toString()).collect(Collectors.toList()));
+//	}
 
 }

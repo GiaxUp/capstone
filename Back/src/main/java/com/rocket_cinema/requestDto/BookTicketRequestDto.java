@@ -8,7 +8,6 @@ import java.util.List;
 public class BookTicketRequestDto {
 	private List<String> requestedSeats;
 	private int showId;
-
 	private Long userId;
 
 }
