@@ -7,31 +7,38 @@ const HeadMovies = () => {
   const [movies, setMovies] = useState([]);
 
   useEffect(() => {
-    const options = {
-      method: "GET",
-      headers: {
-        accept: "application/json",
-        Authorization: API_KEY,
-      },
-    };
-
-    // const fetchMovies = async () => {
-    //   try {
-    //     const response = await fetch("https://api.themoviedb.org/3/movie/now_playing?language=en-US&page=1", options);
-
-    //     if (response.ok) {
-    //       const data = await response.json();
-    //       console.log(data);
-    //       setMovies(data.results); // Aggiorna i dati dei film nella variabile di stato movies
-    //     } else {
-    //       throw new Error("Errore nella richiesta API");
-    //     }
-    //   } catch (error) {
-    //     console.log(error);
-    //   }
+    // const options = {
+    //   method: "GET",
+    //   headers: {
+    //     accept: "application/json",
+    //     Authorization: API_KEY,
+    //   },
     // };
 
-    // fetchMovies();
+    const fetchMovies = async () => {
+      try {
+        const response = await fetch("https://api.themoviedb.org/3/movie/now_playing?language=en-US&page=1", {
+          method: "GET",
+          headers: {
+            accept: "application/json",
+            Authorization:
+              "Bearer eyJhbGciOiJIUzI1NiJ9.eyJhdWQiOiI0MmZhZDUxNzc0NGM0M2FlNDQ0NGM3N2E0ZTEyZDZmMCIsInN1YiI6IjY0NWQ0ZWZkM2ZlMTYwMDEzODY4OGQxYyIsInNjb3BlcyI6WyJhcGlfcmVhZCJdLCJ2ZXJzaW9uIjoxfQ.bu57jDjkEK9IMlZFMUkHR0QTV511AGhGQZXKP8J6vro",
+          },
+        });
+
+        if (response.ok) {
+          const data = await response.json();
+          console.log(data);
+          setMovies(data.results); // Aggiorna i dati dei film nella variabile di stato movies
+        } else {
+          throw new Error("Errore nella richiesta API");
+        }
+      } catch (error) {
+        console.log(error);
+      }
+    };
+
+    fetchMovies();
   }, []);
 
   // Da aggiornare con fetch mie
@@ -41,7 +48,7 @@ const HeadMovies = () => {
       <div className="movie-poster-container d-flex justify-content-center">
         {movies.slice(0, 5).map((movie) => (
           <div key={movie.id} className="movie-card">
-            {/* <img src={`https://image.tmdb.org/t/p/w200${movie.poster_path}`} alt={movie.title} /> */}
+            <img src={`https://image.tmdb.org/t/p/w200${movie.poster_path}`} alt={movie.title} />
             <div className="movie-card-overlay">
               <button className="btn btn-secondary">Watch Trailer</button>
               <button className="btn btn-primary">Book Ticket</button>
