@@ -1,14 +1,18 @@
 .movie-poster-container {
   display: flex;
+  flex-wrap: wrap;
   gap: 10px;
+  justify-content: center;
 }
 
 .movie-card {
   position: relative;
+  width: 200px;
 }
 
 .movie-card img {
   border-radius: 10px;
+  width: 100%;
 }
 
 .movie-card-overlay {
@@ -32,4 +36,14 @@
 
 .movie-card:hover .movie-card-overlay {
   opacity: 1;
+}
+
+.movie-row {
+  display: flex;
+  justify-content: center;
+  width: 100%;
+}
+
+.movie-row .movie-card {
+  margin: 5px;
 }

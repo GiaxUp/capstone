@@ -18,6 +18,10 @@ public class TheaterService {
 
 	@Autowired
 	TheaterRepository theaterRepository;
+	
+	public boolean isTheaterTableEmpty() {
+        return theaterRepository.isEmpty();
+    }
 
 	public String createTheater(TheaterRequestDto theaterRequestDto) {
 		Theater theater = Theater.builder().name(theaterRequestDto.getName()).address(theaterRequestDto.getAddress())

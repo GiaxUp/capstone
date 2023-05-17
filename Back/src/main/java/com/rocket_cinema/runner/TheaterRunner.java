@@ -20,8 +20,10 @@ public class TheaterRunner implements CommandLineRunner {
 
     @Override
     public void run(String... args) throws Exception {
-    	System.out.println("TheaterRunner running...");
-        createTheaters();
+        System.out.println("TheaterRunner running...");
+        if (theaterService.isTheaterTableEmpty()) {
+            createTheaters();
+        }
     }
 
     private void createTheaters() {
@@ -45,10 +47,10 @@ public class TheaterRunner implements CommandLineRunner {
         theater4.setCity("Pisa");
         theater4.setAddress("Via Paolino 13");
 
-        // Scommentare dopo aver droppato database!
-//         theaterService.createTheater(theater1);
-//         theaterService.createTheater(theater2);
-//         theaterService.createTheater(theater3);
-//         theaterService.createTheater(theater4);
+        // Creazione dei 4 cinema
+         theaterService.createTheater(theater1);
+         theaterService.createTheater(theater2);
+         theaterService.createTheater(theater3);
+         theaterService.createTheater(theater4);
     }
 }
