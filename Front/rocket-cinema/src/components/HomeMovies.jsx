@@ -23,7 +23,7 @@ const HomeMovies = () => {
         if (response.ok) {
           const data = await response.json();
           console.log(data);
-          setMovies(data.results); // Aggiorna i dati dei film nella variabile di stato movies
+          setMovies(data.results);
           const results = data.results;
 
           const formattedMovies = results.slice(0, 5).map((movie) => {

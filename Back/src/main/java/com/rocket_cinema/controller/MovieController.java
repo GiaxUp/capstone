@@ -20,7 +20,7 @@ public class MovieController {
 		return movieService.addMovie(movieRequestDto);
 	}
 
-	// Get movie by name
+	// Get movie by name (need to have a show assigned to him to actually work!)
 	@GetMapping("/getMovie")
 	public List<MovieResponseDto> getMovieByName(@RequestParam("name") String movieName) {
 		return movieService.getMovieByName(movieName);
