@@ -39,6 +39,7 @@ const HomeMovies = () => {
           setOtherMovies(results.slice(5));
           setCurrentMovies(formattedMovies);
 
+          // NECESSITA RELOAD DELLA PAGINA PER FARE LA POST SUL DB! FIXARE! e
           formattedMovies.forEach(async (movie) => {
             try {
               await fetch("http://localhost:8080/movie/add", {
