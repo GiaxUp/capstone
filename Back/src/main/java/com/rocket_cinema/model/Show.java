@@ -24,7 +24,7 @@ public class Show {
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private int id;
 	private LocalDate ShowDate;
-	private List<LocalTime> showTime;
+	private LocalTime showTime;
 	@CreationTimestamp
 	private Date createdOn;
 	@UpdateTimestamp

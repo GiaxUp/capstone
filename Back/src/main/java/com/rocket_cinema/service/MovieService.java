@@ -19,7 +19,7 @@ public class MovieService {
 	MovieRepository movieRepository;
 
 	public String addMovie(MovieRequestDto movieRequestDto) {
-		Movie movie = Movie.builder().id(movieRequestDto.getId()).movieName(movieRequestDto.getMovieName()).duration(movieRequestDto.getDuration())
+		Movie movie = Movie.builder().movieName(movieRequestDto.getMovieName()).duration(movieRequestDto.getDuration())
 				.releaseDate(movieRequestDto.getReleaseDate()).build();
 		movieRepository.save(movie);
 		return "Movie added successfully!";

@@ -30,10 +30,6 @@ export default function Login() {
     setShowAlert(false);
   };
 
-  const saveAccessToken = (token) => {
-    sessionStorage.setItem("accessToken", token);
-  };
-
   const changeAuthMode = () => {
     setAuthMode(authMode === "signin" ? "signup" : "signin");
     setName("");
@@ -73,10 +69,11 @@ export default function Login() {
         const response = await axios.post("http://localhost:8080/api/auth/login", { username, password });
         console.log("Accesso effettuato:", response.data);
         dispatch(loginSuccess(response.data));
-        saveAccessToken(response.data.accessToken); // Salva l'accessToken nella sessionStorage
         sessionStorage.setItem("username", response.data.username);
+        sessionStorage.setItem("email", response.data.email);
+        sessionStorage.setItem("name", response.data.name);
         setAlertSeverity("success");
-        setAlertMessage("Login successful, enjoy the site " + response.data.username + "!");
+        setAlertMessage("Login successful, enjoy the site " + response.data.username + "!"); // Restituisce l'username nell'alert
         setShowAlert(true);
         setTimeout(() => {
           handleAlertClose();
@@ -99,8 +96,6 @@ export default function Login() {
       try {
         const response = await axios.post("http://localhost:8080/api/auth/register", { name, username, email, password });
         console.log("Registrazione effettuata:", response.data);
-        sessionStorage.setItem("email", response.data.email);
-        sessionStorage.setItem("name", response.data.name);
         setAlertSeverity("success");
         setAlertMessage("Registration successful, now you can login!");
         setShowAlert(true);

@@ -8,27 +8,29 @@ import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
-@CrossOrigin(origins = "http://localhost:3000")
 @RestController
 @RequestMapping("/movie")
 public class MovieController {
-	@Autowired
-	MovieService movieService;
+    @Autowired
+    MovieService movieService;
 
-	@PostMapping("/add")
-	public String addMovie(@RequestBody MovieRequestDto movieRequestDto) {
-		return movieService.addMovie(movieRequestDto);
-	}
+    @PostMapping("/add")
+    public String addMovie(@RequestBody() MovieRequestDto movieRequestDto) {
+        return movieService.addMovie(movieRequestDto);
+    }
 
-	// Get movie by name (need to have a show assigned to him to actually work!)
-	@GetMapping("/getMovie")
-	public List<MovieResponseDto> getMovieByName(@RequestParam("name") String movieName) {
-		return movieService.getMovieByName(movieName);
-	}
+    // Get movie by name
+    @GetMapping("/getMovie")
+    public List<MovieResponseDto> getMovieByName(@RequestParam("name")String movieName)
+    {
+              return movieService.getMovieByName(movieName);
+    }
 
-	// Get a list of theaters that plays a specific movie
-	@GetMapping("/getTheaters")
-	public List<String> getListOfTheaters(@RequestParam("movie") String movieName) {
-		return movieService.getListOfTheatersForAMovie(movieName);
-	}
+    // Get a list of theaters that plays a specific movie
+    @GetMapping("/getTheaters")
+    public List<String> getListOfTheaters(@RequestParam("movie") String movieName) {
+        return movieService.getListOfTheatersForAMovie(movieName);
+
+
+    }
 }

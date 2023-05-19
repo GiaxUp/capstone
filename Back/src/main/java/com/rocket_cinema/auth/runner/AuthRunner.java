@@ -34,16 +34,17 @@ public class AuthRunner implements ApplicationRunner {
 
 	@Override
 	public void run(ApplicationArguments args) throws Exception {
-		System.out.println("AuthRunner running...");
-		if (roleRepository.findAll().isEmpty()) {
-			setRoleDefault();
-		}
+		System.out.println("Run...");
+		//Scommentare la riga sotto se il database viene droppato
+		// setRoleDefault();
+		// setUserDefault();
+
 	}
 
 	private void setRoleDefault() {
 		Role admin = new Role();
 		admin.setRoleName(ERole.ROLE_ADMIN);
-		// roleRepository.save(admin);
+		roleRepository.save(admin);
 
 		Role user = new Role();
 		user.setRoleName(ERole.ROLE_USER);
@@ -51,7 +52,7 @@ public class AuthRunner implements ApplicationRunner {
 
 		Role moderator = new Role();
 		moderator.setRoleName(ERole.ROLE_MODERATOR);
-		// roleRepository.save(moderator);
+		roleRepository.save(moderator);
 
 		adminRole = new HashSet<Role>();
 		adminRole.add(admin);
@@ -66,14 +67,14 @@ public class AuthRunner implements ApplicationRunner {
 		userRole.add(user);
 	}
 
-	private void setUserDefault() {
-
-		Set<String> roleAdmin = new HashSet<>(
-				adminRole.stream().map(r -> r.getRoleName().toString()).collect(Collectors.toList()));
-		Set<String> roleModerator = new HashSet<>(
-				moderatorRole.stream().map(r -> r.getRoleName().toString()).collect(Collectors.toList()));
-		Set<String> roleUser = new HashSet<>(
-				userRole.stream().map(r -> r.getRoleName().toString()).collect(Collectors.toList()));
-	}
+//	private void setUserDefault() {
+//
+//		Set<String> roleAdmin = new HashSet<>(
+//				adminRole.stream().map(r -> r.getRoleName().toString()).collect(Collectors.toList()));
+//		Set<String> roleModerator = new HashSet<>(
+//				moderatorRole.stream().map(r -> r.getRoleName().toString()).collect(Collectors.toList()));
+//		Set<String> roleUser = new HashSet<>(
+//				userRole.stream().map(r -> r.getRoleName().toString()).collect(Collectors.toList()));
+//	}
 
 }

@@ -8,7 +8,6 @@ import lombok.NoArgsConstructor;
 import java.time.LocalDate;
 import java.time.LocalTime;
 import java.util.Date;
-import java.util.List;
 
 @Data
 @AllArgsConstructor
@@ -19,7 +18,7 @@ public class MovieResponseDto {
 	private int duration;
 	private Date releaseDate;
 	private LocalDate ShowDate;
-	private List<LocalTime> showTime;
+	private LocalTime showTime;
 	private double multiplier;
 	private String theater;
 	private String city;
