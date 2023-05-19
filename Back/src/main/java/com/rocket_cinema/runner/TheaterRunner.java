@@ -41,17 +41,21 @@ public class TheaterRunner implements CommandLineRunner {
 	public void run(String... args) throws Exception {
 		System.out.println("Runner #2 running...");
 
-		if (theaterService.isTheaterTableEmpty()) {
-			createTheaters();
-		} else {
-			System.out.println("Theater table is not empty. Skipping theater creation.");
-		}
+	    if (theaterService.isTheaterTableEmpty()) {
+	        createTheaters();
+	    } else {
+	        System.out.println("Theater table is not empty. Skipping theater creation.");
+	    }
 
-		if (showService.isShowTableEmpty()) {
-			addShowsForAllTheaters();
-		} else {
-			System.out.println("Show table is not empty. Skipping show creation.");
-		}
+	    if (movieRepository.count() > 0) {
+	        if (showService.isShowTableEmpty()) {
+	            addShowsForAllTheaters();
+	        } else {
+	            System.out.println("Show table is not empty. Skipping show creation.");
+	        }
+	    } else {
+	        System.out.println("Movie table is empty. Skipping show creation.");
+	    }
 	}
 
 	private void createTheaters() {
@@ -118,6 +122,6 @@ public class TheaterRunner implements CommandLineRunner {
 			}
 
 		}
-		System.out.println("Added movies to database!");
+		System.out.println("Added shows to database!");
 	}
 }
