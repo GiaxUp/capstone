@@ -27,7 +27,6 @@ public class TicketService {
 		Show show = showRepository.findById(bookTicketRequestDto.getShowId()).get();
 		User user = userRepository.findById(bookTicketRequestDto.getUserId()).get();
 
-
 		// List that desribes our booked seats
 		List<ShowSeat> bookedSeats = new ArrayList<>();
 		// We need show seats for checking whether available or not
@@ -58,26 +57,20 @@ public class TicketService {
 
 		// So we will calculate it from bookedseats list
 		for (ShowSeat bookedseat : bookedSeats) {
-		    bookedseat.setBooked(true);
-		    bookedseat.setBooked_at(new Date());
-		    bookedseat.setTicket(ticket);
-		    bookedseat.setShow(show);
-		    allotedSeats = allotedSeats + bookedseat.getSeatNo();
-		    if (bookedSeats.indexOf(bookedseat) < bookedSeats.size() - 1) {
-		        allotedSeats = allotedSeats + ", ";
-		    }
-		    
-		    // Price
-		    char seatTypePrefix = bookedseat.getSeatNo().charAt(0);
-		    if (seatTypePrefix == 'A' || seatTypePrefix == 'B' || seatTypePrefix == 'C' || seatTypePrefix == 'D') {
-		        // Classic seat cost 10
-		        amount += 10 * mul;
-		    } else if (seatTypePrefix == 'P') {
-		        // Premium seat cost 20
-		        amount += 20 * mul;
-		    }
+			bookedseat.setBooked(true);
+			bookedseat.setBooked_at(new Date());
+			bookedseat.setTicket(ticket);
+			bookedseat.setShow(show);
+			allotedSeats = allotedSeats + bookedseat.getSeatNo() + " ,";
+			// Price
+			if (bookedseat.getSeatNo().charAt(0) == '1') // Classic seat cost 10
+			{
+				amount += 10 * mul;
+			} else // Premium seat cost 20
+			{
+				amount += 20 * mul;
+			}
 		}
-
 		ticket.setAmount((int) amount);
 		ticket.setShowSeatList(bookedSeats);
 		ticket.setAllocatedSeats(allotedSeats);
