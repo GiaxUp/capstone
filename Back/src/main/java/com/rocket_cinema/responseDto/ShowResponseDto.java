@@ -7,6 +7,7 @@ import lombok.NoArgsConstructor;
 
 import java.time.LocalDate;
 import java.time.LocalTime;
+import java.util.List;
 
 @Builder
 @Data
@@ -14,6 +15,6 @@ import java.time.LocalTime;
 @NoArgsConstructor
 public class ShowResponseDto {
 	private LocalDate showDate;
-	private LocalTime showTime;
+	private List<LocalTime> showTime;
 	private String movieName;
 }

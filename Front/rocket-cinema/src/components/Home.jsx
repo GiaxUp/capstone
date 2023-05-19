@@ -1,12 +1,12 @@
 import React from "react";
-import HeadMovies from "./HeadMovies";
+import HomeMovies from "./HomeMovies";
 import TopNavbar from "./TopNavbar";
 
 const Home = () => {
   return (
     <div>
       <TopNavbar />
-      <HeadMovies />
+      <HomeMovies />
     </div>
   );
 };

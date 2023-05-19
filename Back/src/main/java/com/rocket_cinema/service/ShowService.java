@@ -21,6 +21,10 @@ public class ShowService {
 	ShowSeatRepository showSeatRepository;
 	@Autowired
 	ShowRepository showRepository;
+	
+	public boolean isShowTableEmpty() {
+        return showRepository.isEmpty();
+    }
 
 	public String addShow(ShowRequestDto showRequestDto) {
 		// Creating showEntity
@@ -42,7 +46,6 @@ public class ShowService {
 		for (ShowSeat showSeat : showSeatList) {
 			showSeat.setShow(show);
 		}
-		theaterRepository.save(theater); // Saving the upadted with showslist
 		movieRepository.save(movie);
 		return "Show added successfully!";
 
