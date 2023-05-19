@@ -17,12 +17,11 @@ import java.util.List;
 @Data
 public class Movie {
 	@Id
-	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private int id;
 	@Column(unique = true, nullable = false)
 	private String movieName;
 	private int duration;
 	private Date releaseDate;
-	@OneToMany(mappedBy = "movie", cascade = CascadeType.ALL)
+	@OneToMany(mappedBy = "movie", cascade = CascadeType.ALL, fetch = FetchType.EAGER)
 	private List<Show> showList;
 }

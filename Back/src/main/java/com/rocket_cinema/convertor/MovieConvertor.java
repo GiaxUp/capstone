@@ -15,7 +15,7 @@ public class MovieConvertor {
 
 		List<Show> showList = movie.getShowList();
 		for (Show show : showList) {
-			LocalTime time = show.getShowTime();
+			List<LocalTime> time = show.getShowTime();
 			LocalDate date = show.getShowDate();
 			String theaterName = show.getTheater().getName();
 			String address = show.getTheater().getAddress();

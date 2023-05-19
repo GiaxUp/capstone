@@ -4,6 +4,7 @@ import com.rocket_cinema.convertor.TheaterConvertor;
 import com.rocket_cinema.enums.SeatType;
 import com.rocket_cinema.model.Theater;
 import com.rocket_cinema.model.TheaterSeat;
+import com.rocket_cinema.repository.ShowRepository;
 import com.rocket_cinema.repository.TheaterRepository;
 import com.rocket_cinema.requestDto.TheaterRequestDto;
 import com.rocket_cinema.responseDto.TheaterResponseDto;
@@ -18,6 +19,10 @@ public class TheaterService {
 
 	@Autowired
 	TheaterRepository theaterRepository;
+	
+	public boolean isTheaterTableEmpty() {
+        return theaterRepository.isEmpty();
+    }
 
 	public String createTheater(TheaterRequestDto theaterRequestDto) {
 		Theater theater = Theater.builder().name(theaterRequestDto.getName()).address(theaterRequestDto.getAddress())
@@ -39,32 +44,34 @@ public class TheaterService {
 	}
 
 	public List<TheaterSeat> createTheaterSeats() {
-		// This function will create a list of theater seats
-		List<TheaterSeat> theaterSeatList = new ArrayList<>();
-		// we will only create 10 seats for simplicity for now later we can extend it to
-		// users choice and demand
-		// For 5 Classic seats
-		for (int i = 0; i < 5; i++) {
-			TheaterSeat theaterSeat = new TheaterSeat();
-			String seatNo = "1" + ((char) ('A' + i));
-			SeatType seatType = SeatType.CLASSIC;
-			theaterSeat.setSeatNo(seatNo);
-			theaterSeat.setSeatType(seatType);
-			theaterSeat.setRate(10);
-			theaterSeatList.add(theaterSeat);
-		}
-		// For 5 Premium seats
-		for (int i = 0; i < 5; i++) {
-			TheaterSeat theaterSeat = new TheaterSeat();
-			String seatNo = "2" + ((char) ('A' + i));
-			SeatType seatType = SeatType.PREMIUM;
-			theaterSeat.setSeatNo(seatNo);
-			theaterSeat.setSeatType(seatType);
-			theaterSeat.setRate(20);
-			theaterSeatList.add(theaterSeat);
-		}
-		return theaterSeatList;
+	    List<TheaterSeat> theaterSeatList = new ArrayList<>();
+	    char[] rows = {'A', 'B', 'C', 'D'};  // Array di lettere rappresentanti le righe del cinema per i posti Classic
 
+	    // Creazione dei 40 posti Classic
+	    for (int row = 0; row < rows.length; row++) {
+	        for (int seatNo = 1; seatNo <= 10; seatNo++) {
+	            TheaterSeat theaterSeat = new TheaterSeat();
+	            String seatId = Character.toString(rows[row]) + seatNo;
+	            SeatType seatType = SeatType.CLASSIC;
+	            theaterSeat.setSeatNo(seatId);
+	            theaterSeat.setSeatType(seatType);
+	            theaterSeat.setRate(10);
+	            theaterSeatList.add(theaterSeat);
+	        }
+	    }
+
+	    // Creazione dei 10 posti Premium
+	    for (int seatNo = 1; seatNo <= 10; seatNo++) {
+	        TheaterSeat theaterSeat = new TheaterSeat();
+	        String seatId = "P" + seatNo;
+	        SeatType seatType = SeatType.PREMIUM;
+	        theaterSeat.setSeatNo(seatId);
+	        theaterSeat.setSeatType(seatType);
+	        theaterSeat.setRate(20);
+	        theaterSeatList.add(theaterSeat);
+	    }
+
+	    return theaterSeatList;
 	}
 
 	public TheaterResponseDto getbyId(int id) {
