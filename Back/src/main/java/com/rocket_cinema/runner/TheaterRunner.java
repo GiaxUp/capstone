@@ -33,26 +33,25 @@ public class TheaterRunner implements CommandLineRunner {
 	@Autowired
 	private TheaterRepository theaterRepository;
 
-
 	public static void main(String[] args) {
 		SpringApplication.run(TheaterRunner.class, args);
 	}
 
 	@Override
 	public void run(String... args) throws Exception {
-		System.out.println("TheaterRunner running...");
+		System.out.println("Runner #2 running...");
 
-	    if (theaterService.isTheaterTableEmpty()) {
-	        createTheaters();
-	    } else {
-	        System.out.println("Theater table is not empty. Skipping theater creation.");
-	    }
+		if (theaterService.isTheaterTableEmpty()) {
+			createTheaters();
+		} else {
+			System.out.println("Theater table is not empty. Skipping theater creation.");
+		}
 
-	    if (showService.isShowTableEmpty()) {
-	        addShowsForAllTheaters();
-	    } else {
-	        System.out.println("Show table is not empty. Skipping show creation.");
-	    }
+		if (showService.isShowTableEmpty()) {
+			addShowsForAllTheaters();
+		} else {
+			System.out.println("Show table is not empty. Skipping show creation.");
+		}
 	}
 
 	private void createTheaters() {
@@ -84,7 +83,7 @@ public class TheaterRunner implements CommandLineRunner {
 	}
 
 	public void addShowsForAllTheaters() {
-		System.out.println("Show running...");
+		System.out.println("Generating Shows for all Theaters...");
 		List<Movie> movies = movieRepository.findAll();
 		List<Theater> theaters = theaterRepository.findAll();
 		LocalDate currentDate = LocalDate.now();
@@ -92,8 +91,6 @@ public class TheaterRunner implements CommandLineRunner {
 		for (Theater theater : theaters) {
 			int movieIndex = 0;
 			for (int i = 0; i <= 3; i++) {
-
-				System.out.println("For 2");
 				LocalDate showDate = currentDate.plusDays(i);
 				List<LocalTime> showTime = new ArrayList<LocalTime>();
 				boolean isRunning = true;
@@ -108,7 +105,6 @@ public class TheaterRunner implements CommandLineRunner {
 				}
 
 				Movie movie = movies.get(movieIndex);
-				System.out.println(movie.getMovieName());
 				movieIndex += 1;
 
 				ShowRequestDto showRequestDto = new ShowRequestDto();
@@ -117,10 +113,11 @@ public class TheaterRunner implements CommandLineRunner {
 				showRequestDto.setMovieName(movie.getMovieName());
 				showRequestDto.setTheaterId(theater.getId());
 				showRequestDto.setMultiplier(1.0); // Set the appropriate multiplier value
-				System.out.println(showRequestDto);
 				showService.addShow(showRequestDto);
 
 			}
+
 		}
+		System.out.println("Added movies to database!");
 	}
 }
