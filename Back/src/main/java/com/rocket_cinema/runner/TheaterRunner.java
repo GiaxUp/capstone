@@ -94,7 +94,7 @@ public class TheaterRunner implements CommandLineRunner {
 
 		for (Theater theater : theaters) {
 			int movieIndex = 0;
-			for (int i = 0; i <= 3; i++) {
+			for (int i = 0; i <= 4; i++) {
 				LocalDate showDate = currentDate.plusDays(i);
 				List<LocalTime> showTime = new ArrayList<LocalTime>();
 				boolean isRunning = true;

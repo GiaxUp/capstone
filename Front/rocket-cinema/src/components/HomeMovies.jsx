@@ -1,5 +1,7 @@
 import React, { useEffect, useState } from "react";
+import axios from "axios";
 import "../style/HomeMovies.css";
+import HomeCarousel from "./HomeCarousel.jsx";
 
 const API_KEY = process.env.REACT_APP_API_KEY_BEARER;
 const API_KEY_LOGGED = sessionStorage.getItem("accessToken");
@@ -12,16 +14,15 @@ const HomeMovies = () => {
   useEffect(() => {
     const fetchMovies = async () => {
       try {
-        const response = await fetch("https://api.themoviedb.org/3/movie/now_playing?language=en-US&page=1", {
-          method: "GET",
+        const response = await axios.get("https://api.themoviedb.org/3/movie/now_playing?language=en-US&page=1", {
           headers: {
             accept: "application/json",
             Authorization: API_KEY,
           },
         });
 
-        if (response.ok) {
-          const data = await response.json();
+        if (response.status === 200) {
+          const data = response.data;
           console.log(data);
           setMovies(data.results);
           const results = data.results;
@@ -39,17 +40,14 @@ const HomeMovies = () => {
           setOtherMovies(results.slice(5));
           setCurrentMovies(formattedMovies);
 
-          // NECESSITA RELOAD DELLA PAGINA PER FARE LA POST SUL DB! FIXARE!
           formattedMovies.forEach(async (movie) => {
             try {
-              await fetch("http://localhost:8080/movie/add", {
-                method: "POST",
+              await axios.post("http://localhost:8080/movie/add", movie, {
                 headers: {
                   Accept: "application/json",
                   "Content-Type": "application/json",
                   Authorization: "Bearer " + API_KEY_LOGGED,
                 },
-                body: JSON.stringify(movie),
               });
               console.log("Film salvati nel database BE!");
             } catch (error) {
@@ -90,30 +88,33 @@ const HomeMovies = () => {
   );
 
   return (
-    <div>
+    <>
+      <HomeCarousel />
       <div>
-        <h1>Film del momento</h1>
-        <div className="movie-poster-container d-flex justify-content-center">
-          {movies.map((movie) => (
-            <div key={movie.id} className="movie-card">
-              <img src={`https://image.tmdb.org/t/p/w200${movie.poster_path}`} alt={movie.title} />
-              <div className="movie-card-overlay">
-                <button className="btn btn-secondary">Watch Trailer</button>
-                <button className="btn btn-primary">Book Ticket</button>
+        <div>
+          <h1>Film del momento</h1>
+          <div className="movie-poster-container d-flex justify-content-center">
+            {movies.map((movie) => (
+              <div key={movie.id} className="movie-card">
+                <img src={`https://image.tmdb.org/t/p/w200${movie.poster_path}`} alt={movie.title} />
+                <div className="movie-card-overlay">
+                  <button className="btn btn-secondary">Watch Trailer</button>
+                  <button className="btn btn-primary">Book Ticket</button>
+                </div>
               </div>
-            </div>
-          ))}
+            ))}
+          </div>
+        </div>
+        <div>
+          <h1>Non più in proiezione</h1>
+          <div className="movie-grid">
+            {chunk(otherMovies, 5).map((movieChunk, index) => (
+              <MovieRow key={index} movies={movieChunk} />
+            ))}
+          </div>
         </div>
       </div>
-      <div>
-        <h1>Non più in proiezione</h1>
-        <div className="movie-grid">
-          {chunk(otherMovies, 5).map((movieChunk, index) => (
-            <MovieRow key={index} movies={movieChunk} />
-          ))}
-        </div>
-      </div>
-    </div>
+    </>
   );
 };
 
