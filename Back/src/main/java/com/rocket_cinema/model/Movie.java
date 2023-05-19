@@ -22,6 +22,6 @@ public class Movie {
 	private String movieName;
 	private int duration;
 	private Date releaseDate;
-	@OneToMany(mappedBy = "movie", cascade = CascadeType.ALL)
+	@OneToMany(mappedBy = "movie", cascade = CascadeType.ALL, fetch = FetchType.EAGER)
 	private List<Show> showList;
 }

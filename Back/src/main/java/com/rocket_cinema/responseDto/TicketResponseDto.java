@@ -7,6 +7,7 @@ import lombok.Data;
 import lombok.NoArgsConstructor;
 
 import java.time.LocalTime;
+import java.util.List;
 
 @Builder
 @Data
@@ -15,7 +16,7 @@ import java.time.LocalTime;
 public class TicketResponseDto {
 	private String movieName;
 	private String theaterName;
-	private LocalTime showTime;
+	private List<LocalTime> showTime;
 	private String seatNo;
 	private SeatType seatType;
 	private int ticketAmount;

@@ -22,8 +22,8 @@ public class Theater {
 	private String name;
 	private String city;
 	private String address;
-	@OneToMany(mappedBy = "theater", cascade = CascadeType.ALL)
+	@OneToMany(mappedBy = "theater", cascade = CascadeType.ALL, fetch = FetchType.EAGER)
 	private List<TheaterSeat> theaterSeatList;
-	@OneToMany(mappedBy = "theater", cascade = CascadeType.ALL)
+	@OneToMany(mappedBy = "theater", cascade = CascadeType.ALL, fetch = FetchType.EAGER)
 	private List<Show> showList;
 }

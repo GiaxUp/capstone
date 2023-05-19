@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from "react";
 import "../style/HomeMovies.css";
 
-const API_KEY = process.env.API_KEY_BEARER;
+const API_KEY = process.env.REACT_APP_API_KEY_BEARER;
 const API_KEY_LOGGED = sessionStorage.getItem("accessToken");
 
 const HomeMovies = () => {
