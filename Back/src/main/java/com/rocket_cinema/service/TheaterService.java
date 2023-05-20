@@ -45,11 +45,22 @@ public class TheaterService {
 
 	public List<TheaterSeat> createTheaterSeats() {
 	    List<TheaterSeat> theaterSeatList = new ArrayList<>();
-	    char[] rows = {'A', 'B', 'C', 'D'};  // Array di lettere rappresentanti le righe del cinema per i posti Classic
-
+	    
+	    // Creazione dei 10 posti Premium
+	    for (int seatNo = 1; seatNo <= 8; seatNo++) {
+	        TheaterSeat theaterSeat = new TheaterSeat();
+	        String seatId = "A" + seatNo;
+	        SeatType seatType = SeatType.PREMIUM;
+	        theaterSeat.setSeatNo(seatId);
+	        theaterSeat.setSeatType(seatType);
+	        theaterSeat.setRate(20);
+	        theaterSeatList.add(theaterSeat);
+	    }
+	    
 	    // Creazione dei 40 posti Classic
+	    char[] rows = {'B', 'C', 'D', 'E', 'F', 'G', 'H'};
 	    for (int row = 0; row < rows.length; row++) {
-	        for (int seatNo = 1; seatNo <= 10; seatNo++) {
+	        for (int seatNo = 1; seatNo <= 8; seatNo++) {
 	            TheaterSeat theaterSeat = new TheaterSeat();
 	            String seatId = Character.toString(rows[row]) + seatNo;
 	            SeatType seatType = SeatType.CLASSIC;
@@ -60,16 +71,7 @@ public class TheaterService {
 	        }
 	    }
 
-	    // Creazione dei 10 posti Premium
-	    for (int seatNo = 1; seatNo <= 10; seatNo++) {
-	        TheaterSeat theaterSeat = new TheaterSeat();
-	        String seatId = "P" + seatNo;
-	        SeatType seatType = SeatType.PREMIUM;
-	        theaterSeat.setSeatNo(seatId);
-	        theaterSeat.setSeatType(seatType);
-	        theaterSeat.setRate(20);
-	        theaterSeatList.add(theaterSeat);
-	    }
+	    
 
 	    return theaterSeatList;
 	}

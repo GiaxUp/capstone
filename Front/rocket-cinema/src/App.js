@@ -6,6 +6,8 @@ import Login from "./components/Login.jsx";
 import Profile from "./components/Profile.jsx";
 import Checkout from "./components/Checkout.jsx";
 import Home from "../src/components/Home.jsx";
+import Promotions from "../src/components/Promotions.jsx";
+import BookMovie from "../src/components/BookMovie.jsx";
 import AnimatedBackground from "../src/components/AnimatedBackground.jsx";
 
 function App() {
@@ -17,6 +19,8 @@ function App() {
           <Route path="/home" element={<Home />} />
           <Route path="/profile" element={<Profile />} />
           <Route path="/checkout" element={<Checkout />} />
+          <Route path="/promotions" element={<Promotions />} />
+          <Route path="/bookmovie" element={<BookMovie />} />
         </Routes>
       </Router>
       <AnimatedBackground />

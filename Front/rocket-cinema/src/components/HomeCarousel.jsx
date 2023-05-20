@@ -18,7 +18,7 @@ function HomeCarousel() {
           <img src="images/Car3.jpg" alt="Fourth slide" />
         </Carousel.Item>
         <Carousel.Item interval={4500}>
-          <img src="images/Car4.jpg" alt="Fifth slide" />
+          <img src="images/Car4.png" alt="Fifth slide" />
         </Carousel.Item>
       </Carousel>
     </div>
