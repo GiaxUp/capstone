@@ -14,6 +14,8 @@ import java.util.List;
 @AllArgsConstructor
 @NoArgsConstructor
 public class ShowResponseDto {
+	private int showID;
+	private int theaterID;
 	private LocalDate showDate;
 	private List<LocalTime> showTime;
 	private String movieName;

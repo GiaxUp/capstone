@@ -12,7 +12,7 @@ public class ShowConvertor {
 		List<ShowResponseDto> showResponseDtoList = new ArrayList<>();
 		for (Show show : showEntityList) {
 			ShowResponseDto showResponseDto = ShowResponseDto.builder().showDate(show.getShowDate())
-					.showTime(show.getShowTime()).movieName(show.getMovie().getMovieName()).build();
+					.showTime(show.getShowTime()).showID(show.getId()).theaterID(show.getTheater().getId()).movieName(show.getMovie().getMovieName()).build();
 			showResponseDtoList.add(showResponseDto);
 		}
 		return showResponseDtoList;
