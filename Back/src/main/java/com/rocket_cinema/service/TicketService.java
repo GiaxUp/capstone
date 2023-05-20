@@ -61,7 +61,10 @@ public class TicketService {
 			bookedseat.setBooked_at(new Date());
 			bookedseat.setTicket(ticket);
 			bookedseat.setShow(show);
-			allotedSeats = allotedSeats + bookedseat.getSeatNo() + " ,";
+			allotedSeats = allotedSeats + bookedseat.getSeatNo();
+		    if (bookedSeats.indexOf(bookedseat) < bookedSeats.size() - 1) {
+		        allotedSeats = allotedSeats + ", ";
+		    }
 			// Price
 			if (bookedseat.getSeatNo().charAt(0) == '1') // Classic seat cost 10
 			{
