@@ -103,7 +103,7 @@ const HomeMovies = () => {
       <HomeCarousel />
       <div>
         <div>
-          <h1>Film del momento</h1>
+          <p className="main-titles">Now in theaters</p>
           <div className="movie-poster-container d-flex justify-content-center">
             {movies.map((movie) => (
               <div key={movie.id} className="movie-card">
@@ -119,7 +119,7 @@ const HomeMovies = () => {
           </div>
         </div>
         <div>
-          <h1>Non più in proiezione</h1>
+          <p className="main-titles">Coming soon</p>
           <div className="movie-grid">
             {chunk(otherMovies, 5).map((movieChunk, index) => (
               <MovieRow key={index} movies={movieChunk} />
