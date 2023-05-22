@@ -11,6 +11,7 @@ import org.springframework.stereotype.Service;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
+import java.util.stream.Collectors;
 
 @Service
 public class TicketService {
@@ -54,7 +55,8 @@ public class TicketService {
 		ticket.setUser(user);
 		ticket.setShow(show);
 		ticket.setBooked_at(new Date());
-
+		ticket.setSelectedShowtime(bookTicketRequestDto.getRequestedShowtime())
+		;
 		// So we will calculate it from bookedseats list
 		for (ShowSeat bookedseat : bookedSeats) {
 			bookedseat.setBooked(true);
@@ -134,5 +136,12 @@ public class TicketService {
 
 		ticketRepository.save(ticket);
 		return fine;
+	}
+	public List<Ticket> findTicketsByShow(Long showID) {
+		List<Ticket> allTicket = ticketRepository.findAll();
+		List<Ticket> filteredTickets = allTicket.stream()
+				.filter(t -> t.getShow().getId() == showID)
+				.collect(Collectors.toList());
+		return filteredTickets;
 	}
 }

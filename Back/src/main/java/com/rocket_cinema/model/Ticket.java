@@ -9,6 +9,8 @@ import lombok.NoArgsConstructor;
 import java.util.Date;
 import java.util.List;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.rocket_cinema.auth.entity.User;
 
 @Entity
@@ -22,14 +24,18 @@ public class Ticket {
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private int id;
 	private String allocatedSeats;
+	private String selectedShowtime;
 	private int amount;
 	private Date booked_at;
 	@ManyToOne
 	@JoinColumn
+	@JsonIgnoreProperties(value = {"ticketList"})
 	private User user;
 	@ManyToOne
 	@JoinColumn
+	@JsonIgnore
 	private Show show;
 	@OneToMany(mappedBy = "ticket", cascade = CascadeType.ALL)
+	@JsonIgnore
 	List<ShowSeat> showSeatList;
 }

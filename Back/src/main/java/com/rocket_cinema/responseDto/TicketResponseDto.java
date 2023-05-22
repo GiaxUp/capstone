@@ -16,7 +16,7 @@ import java.util.List;
 public class TicketResponseDto {
 	private String movieName;
 	private String theaterName;
-	private List<LocalTime> showTime;
+	private String selectedShowtime;
 	private String seatNo;
 	private SeatType seatType;
 	private int ticketAmount;

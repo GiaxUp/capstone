@@ -7,7 +7,7 @@ import java.util.List;
 @Data
 public class BookTicketRequestDto {
 	private List<String> requestedSeats;
-	private List<String> requestedShowtime; // Non è string ma è da fixare
+	private String requestedShowtime;
 	private int showId;
 	private Long userId;
 
