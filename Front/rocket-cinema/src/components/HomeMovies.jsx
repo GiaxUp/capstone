@@ -2,6 +2,9 @@ import React, { useEffect, useState } from "react";
 import axios from "axios";
 import "../style/HomeMovies.css";
 import HomeCarousel from "./HomeCarousel.jsx";
+import { useDispatch, useSelector } from "react-redux";
+import { saveSelectedMovie } from "../redux/actions/movieActions";
+import { useNavigate } from "react-router-dom";
 
 const API_KEY = process.env.REACT_APP_API_KEY_BEARER;
 const API_KEY_LOGGED = sessionStorage.getItem("accessToken");
@@ -10,6 +13,7 @@ const HomeMovies = () => {
   const [movies, setMovies] = useState([]);
   const [otherMovies, setOtherMovies] = useState([]);
   const [currentMovies, setCurrentMovies] = useState([]);
+  const navigate = useNavigate();
 
   useEffect(() => {
     const fetchMovies = async () => {
@@ -74,6 +78,13 @@ const HomeMovies = () => {
     return chunkedArray;
   };
 
+  const dispatch = useDispatch();
+  const selectedMovie = useSelector((state) => state.movie.selectedMovie);
+  const handleBookTicket = (movieName, movieId) => {
+    dispatch(saveSelectedMovie(movieName, movieId));
+    navigate("/bookmovie");
+  };
+
   const MovieRow = ({ movies }) => (
     <div className="movie-row">
       {movies.map((movie) => (
@@ -99,7 +110,9 @@ const HomeMovies = () => {
                 <img src={`https://image.tmdb.org/t/p/w200${movie.poster_path}`} alt={movie.title} />
                 <div className="movie-card-overlay">
                   <button className="btn btn-secondary">Watch Trailer</button>
-                  <button className="btn btn-primary">Book Ticket</button>
+                  <button className="btn btn-primary" onClick={() => handleBookTicket(movie.original_title, movie.id)}>
+                    Book Ticket
+                  </button>
                 </div>
               </div>
             ))}

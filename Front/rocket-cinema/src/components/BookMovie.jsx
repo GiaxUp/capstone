@@ -1,27 +1,50 @@
 import React, { useEffect, useState } from "react";
-import YouTube from "react-youtube";
+import axios from "axios";
+import { useSelector } from "react-redux";
 
 const API_KEY = process.env.REACT_APP_API_KEY_BEARER;
-const API_KEY_LOGGED = sessionStorage.getItem("accessToken");
 
 const BookMovie = () => {
-  //   const fetchTrailer = async () => {
-  //     try {
-  //       const response = await fetch("https://api.themoviedb.org/3/movie/385687/videos?language=en-US", options);
-  //       const data = await response.json();
-  //       const trailers = data.results.filter((result) => result.type === "Trailer");
-  //       if (trailers.length > 0) {
-  //         const trailerKey = trailers[0].key;
-  //         setTrailerKey(trailerKey);
-  //       } else {
-  //         console.log("Nessun trailer disponibile");
-  //       }
-  //     } catch (error) {
-  //       console.error(error);
-  //     }
-  //   };
-  //   fetchTrailer();
-  // }, []);
+  const selectedMovieId = useSelector((state) => state.movie.selectedMovie.movieId);
+  const [movieDetails, setMovieDetails] = useState(null);
+
+  useEffect(() => {
+    const fetchMovieDetails = async () => {
+      try {
+        const response = await axios.get(`https://api.themoviedb.org/3/movie/${selectedMovieId}`, {
+          headers: {
+            accept: "application/json",
+            Authorization: API_KEY,
+          },
+        });
+
+        if (response.status === 200) {
+          const data = response.data;
+          setMovieDetails(data);
+        } else {
+          throw new Error("Error fetching movie details");
+        }
+      } catch (error) {
+        console.log(error);
+      }
+    };
+
+    fetchMovieDetails();
+  }, [selectedMovieId]);
+
+  return (
+    <div>
+      {movieDetails ? (
+        <>
+          <h1>{movieDetails.original_title}</h1>
+          <img src={`https://image.tmdb.org/t/p/w200${movieDetails.poster_path}`} alt={movieDetails.original_title} />
+          <p>{movieDetails.overview}</p>
+        </>
+      ) : (
+        <p>Loading...</p>
+      )}
+    </div>
+  );
 };
 
 export default BookMovie;
