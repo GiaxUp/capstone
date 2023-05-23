@@ -5,6 +5,7 @@ import HomeCarousel from "./HomeCarousel.jsx";
 import { useDispatch, useSelector } from "react-redux";
 import { saveSelectedMovie } from "../redux/actions/movieActions";
 import { useNavigate } from "react-router-dom";
+import YouTube from "react-youtube";
 
 const API_KEY = process.env.REACT_APP_API_KEY_BEARER;
 
@@ -14,7 +15,45 @@ const HomeMovies = () => {
   const [currentMovies, setCurrentMovies] = useState([]);
   const API_SESSION_STORAGE = sessionStorage.getItem("accessToken");
   const LOGGED_USERNAME = sessionStorage.getItem("username");
+  const [showVideo, setShowVideo] = useState(false);
   const navigate = useNavigate();
+
+  // Open/close trailer video
+  const openVideo = () => {
+    setShowVideo(true);
+  };
+
+  const closeVideo = () => {
+    setShowVideo(false);
+  };
+
+  // Stuff for the "Turn off lights" effetct around trailers
+  const overlayStyle = {
+    position: "fixed",
+    top: 0,
+    left: 0,
+    right: 0,
+    bottom: 0,
+    backgroundColor: "rgba(0, 0, 0, 0.8)",
+    zIndex: 9999,
+  };
+
+  const videoContainerStyle = {
+    position: "fixed",
+    top: "50%",
+    left: "50%",
+    transform: "translate(-50%, -50%)",
+    zIndex: 10000,
+  };
+
+  const closeBtnStyle = {
+    position: "absolute",
+    top: "10px",
+    right: "10px",
+    color: "#fff",
+    cursor: "pointer",
+    fontSize: "20px",
+  };
 
   useEffect(() => {
     const fetchMovies = async () => {
@@ -92,7 +131,9 @@ const HomeMovies = () => {
         <div key={movie.id} className="movie-card">
           <img src={`https://image.tmdb.org/t/p/w200${movie.poster_path}`} alt={movie.title} />
           <div className="movie-card-overlay">
-            <button className="btn btn-secondary">Watch Trailer</button>
+            <button className="btn btn-secondary" onClick={openVideo}>
+              Watch Trailer
+            </button>
           </div>
         </div>
       ))}
@@ -106,11 +147,23 @@ const HomeMovies = () => {
         <div>
           <p className="main-titles">Now in theaters</p>
           <div className="movie-poster-container d-flex justify-content-center">
+            {showVideo && (
+              <div style={overlayStyle} onClick={closeVideo}>
+                <div style={videoContainerStyle}>
+                  <YouTube videoId="tRotw_IpuaQ" />
+                  <span style={closeBtnStyle} onClick={closeVideo}>
+                    X
+                  </span>
+                </div>
+              </div>
+            )}
             {movies.map((movie) => (
               <div key={movie.id} className="movie-card">
                 <img src={`https://image.tmdb.org/t/p/w200${movie.poster_path}`} alt={movie.title} />
                 <div className="movie-card-overlay">
-                  <button className="btn btn-secondary">Watch Trailer</button>
+                  <button className="btn btn-secondary" onClick={openVideo}>
+                    Watch Trailer
+                  </button>
                   <button className="btn btn-primary" onClick={() => handleBookTicket(movie.original_title, movie.id)}>
                     Book Ticket
                   </button>

@@ -30,17 +30,21 @@
   left: 0;
   width: 100%;
   height: 100%;
-  display: flex;
-  justify-content: center;
-  align-items: center;
   opacity: 0;
   transition: opacity 0.3s ease;
   background-color: rgba(0, 0, 0, 0.7);
   border-radius: 10px;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  padding: 10px;
 }
 
 .movie-card-overlay button {
-  margin: 5px;
+  display: block;
+  width: 100%;
+  margin-bottom: 10px;
 }
 
 .movie-card:hover .movie-card-overlay {
