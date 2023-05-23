@@ -90,7 +90,7 @@ const BookMovie = () => {
           headers: {
             accept: "application/json",
             Authorization:
-              "Bearer eyJhbGciOiJIUzM4NCJ9.eyJzdWIiOiJhYWFAYWFhLml0IiwiaWF0IjoxNjg0ODM0MDU5LCJleHAiOjE2ODU0Mzg4NTl9.H1PdbDVfi3Ffm4v-_yR01pHYdpWZQRuONsnPshmi-XmQ5H8rngX26smB3YGihKDo",
+              "Bearer eyJhbGciOiJIUzM4NCJ9.eyJzdWIiOiJhYWFAYWFhLml0IiwiaWF0IjoxNjg0ODY2ODkzLCJleHAiOjE2ODU0NzE2OTN9.5Vt5N_rRrMTaJdEmaeoMFVkCsCb5Eo8T2xqtY4JluSxEluAmzI-M-rrzkT-PeIms",
           },
         });
         if (response.status === 200) {
@@ -164,7 +164,6 @@ const BookMovie = () => {
             ) : (
               <p className="no-comments">No comments available.</p>
             )}
-            {/* const showFound = showList.find((show) => show.theaterID === Number(checkoutStore.selectedTheater)); dispatch(setSelectedShowID(showFound?.showID)); */}
             <p className="comments-title">Book your show now</p>
             {showList.length > 0 && (
               <select

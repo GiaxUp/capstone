@@ -1,4 +1,4 @@
-import { SAVE_SELECTED_MOVIE, SET_SELECTED_THEATER, SET_SELECTED_SHOW_TIME, SET_SELECTED_SHOW_ID } from "../actions/movieActions";
+import { SAVE_SELECTED_MOVIE, SET_SELECTED_THEATER, SET_SELECTED_SHOW_TIME, SET_SELECTED_SHOW_ID, SELECT_SEATS, CONFIRM_SEATS } from "../actions/movieActions";
 
 const initialState = {
   selectedMovie: {
@@ -8,6 +8,7 @@ const initialState = {
   selectedTheater: "",
   selectedShowTime: "",
   selectedShow: "",
+  requestedSeats: [],
 };
 
 const checkoutReducer = (state = initialState, action) => {
@@ -31,6 +32,16 @@ const checkoutReducer = (state = initialState, action) => {
       return {
         ...state,
         selectedShow: action.payload,
+      };
+    case SELECT_SEATS:
+      return {
+        ...state,
+        requestedSeats: action.payload.seats,
+      };
+    case CONFIRM_SEATS:
+      return {
+        ...state,
+        requestedSeats: action.payload.selectedSeats,
       };
     default:
       return state;
