@@ -119,7 +119,7 @@ const BookMovie = () => {
             <select className="select-show-time">
               <option value="">Select Show Time</option>
             </select>
-            <button className="confirm-button">Confirm</button>
+            <button className="confirm-button">Checkout</button>
           </>
         ) : (
           <p className="loading">Loading movie details...</p>
