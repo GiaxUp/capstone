@@ -1,73 +1,40 @@
 import "../style/BookSeats.css";
 import React, { useState } from "react";
 import clsx from "clsx";
-
-const movies = [
-  {
-    name: "Avenger",
-    price: 10,
-    occupied: [20, 21, 30, 1, 2, 8],
-  },
-  {
-    name: "Joker",
-    price: 12,
-    occupied: [9, 41, 35, 11, 65, 26],
-  },
-  {
-    name: "Toy story",
-    price: 8,
-    occupied: [37, 25, 44, 13, 2, 3],
-  },
-  {
-    name: "the lion king",
-    price: 9,
-    occupied: [10, 12, 50, 33, 28, 47],
-  },
-];
+import { useSelector } from "react-redux";
 
 const seats = Array.from({ length: 8 * 8 }, (_, i) => i);
 
 export default function BookSeats() {
-  const [selectedMovie, setSelectedMovie] = useState(movies[0]);
+  // const [selectedMovie, setSelectedMovie] = useState(movies[0]);
   const [selectedSeats, setSelectedSeats] = useState([]);
+  const checkoutStore = useSelector((state) => state.checkout);
+
+  const selectedMovieStore = useSelector((state) => checkoutStore.selectedMovie);
+  const selectedTheater = useSelector((state) => checkoutStore.selectedTheater);
+  const selectedShowTime = useSelector((state) => checkoutStore.selectedShowTime);
+  const selectedShow = useSelector((state) => checkoutStore.selectedShow);
 
   return (
-    <div className="BookSeats">
-      <Movies
-        movie={selectedMovie}
-        onChange={(movie) => {
-          setSelectedSeats([]);
-          setSelectedMovie(movie);
-        }}
-      />
-      <ShowCase />
-      <Cinema movie={selectedMovie} selectedSeats={selectedSeats} onSelectedSeatsChange={(selectedSeats) => setSelectedSeats(selectedSeats)} />
+    <>
+      <div className="CheckoutSummary">
+        <h2>Riepilogo Checkout</h2>
+        <p>Selected Movie: {selectedMovieStore.movieName}</p>
+        <p>Selected Theater: {selectedTheater}</p>
+        <p>Selected Show Time: {selectedShowTime}</p>
+        <p>Selected Show: {selectedShow}</p>
+      </div>
+      <div className="BookSeats">
+        <ShowCase />
+        <Cinema movie={selectedMovieStore.movieName} selectedSeats={selectedSeats} onSelectedSeatsChange={(selectedSeats) => setSelectedSeats(selectedSeats)} />
+        <Cinema selectedSeats={selectedSeats} onSelectedSeatsChange={(selectedSeats) => setSelectedSeats(selectedSeats)} />
 
-      <p className="info">
-        You have selected <span className="count">{selectedSeats.length}</span> seats for the price of{" "}
-        <span className="total">{selectedSeats.length * selectedMovie.price}$</span>
-      </p>
-    </div>
-  );
-}
-
-function Movies({ movie, onChange }) {
-  return (
-    <div className="Movies">
-      <label htmlFor="movie">Pick a movie</label>
-      <select
-        id="movie"
-        value={movie.name}
-        onChange={(e) => {
-          onChange(movies.find((movie) => movie.name === e.target.value));
-        }}>
-        {movies.map((movie) => (
-          <option key={movie.name} value={movie.name}>
-            {movie.name} (${movie.price})
-          </option>
-        ))}
-      </select>
-    </div>
+        <p className="info">
+          You have selected <span className="count">{selectedSeats.length}</span> seats for the price of {/* da cambiare selectedMovieStore.movieName */}
+          <span className="total">{selectedSeats.length * selectedMovieStore.movieName}$</span>
+        </p>
+      </div>
+    </>
   );
 }
 
