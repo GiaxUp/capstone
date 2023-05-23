@@ -68,12 +68,12 @@ public class TicketService {
 		        allotedSeats = allotedSeats + ", ";
 		    }
 			// Price
-			if (bookedseat.getSeatNo().charAt(0) == 'A') // Classic seat cost 10
-			{
-				amount += 10 * mul;
-			} else // Premium seat cost 20
+			if (bookedseat.getSeatNo().charAt(0) == 'A') // Premium seats costs 20€
 			{
 				amount += 20 * mul;
+			} else // Classic seats costs 10€
+			{
+				amount += 10 * mul;
 			}
 		}
 		ticket.setAmount((int) amount);

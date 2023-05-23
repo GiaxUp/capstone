@@ -3,10 +3,16 @@ import React, { useState } from "react";
 import { useSelector, useDispatch } from "react-redux";
 import { selectSeats, confirmSeats } from "../redux/actions/movieActions";
 import axios from "axios";
+import { useNavigate } from "react-router-dom";
+
+const API_KEY = process.env.REACT_APP_API_KEY_BEARER;
 
 export default function BookSeats() {
   const dispatch = useDispatch();
+  const navigate = useNavigate();
   const checkoutStore = useSelector((state) => state.checkout);
+  const API_SESSION_STORAGE = sessionStorage.getItem("accessToken");
+  const LOGGED_USERNAME = sessionStorage.getItem("username");
 
   const selectedMovieStore = useSelector((state) => checkoutStore.selectedMovie);
   const selectedTheater = useSelector((state) => checkoutStore.selectedTheater);
@@ -19,7 +25,6 @@ export default function BookSeats() {
   const handleSeatClick = (seatName) => {
     if (selectedSeats.includes(seatName)) {
       setSelectedSeats(selectedSeats.filter((seat) => seat !== seatName));
-      console.log(selectedSeats);
     } else {
       setSelectedSeats([...selectedSeats, seatName]);
     }
@@ -39,14 +44,31 @@ export default function BookSeats() {
       const response = await axios.post("http://localhost:8080/ticket/book", ticketData, {
         headers: {
           accept: "application/json",
-          Authorization:
-            "Bearer eyJhbGciOiJIUzM4NCJ9.eyJzdWIiOiJhYWFAYWFhLml0IiwiaWF0IjoxNjg0ODY2ODkzLCJleHAiOjE2ODU0NzE2OTN9.5Vt5N_rRrMTaJdEmaeoMFVkCsCb5Eo8T2xqtY4JluSxEluAmzI-M-rrzkT-PeIms",
+          Authorization: "Bearer " + API_SESSION_STORAGE,
         },
       });
       console.log(response.data);
+      alert("Pagamento effettuato!");
+      navigate("/home");
     } catch (error) {
       console.error(error);
     }
+  };
+
+  const calculateTotalCost = () => {
+    const premiumSeatPrice = 20;
+    const classicSeatPrice = 10;
+    let totalCost = 0;
+
+    selectedSeats.forEach((seat) => {
+      if (seat.charAt(0) === "A") {
+        totalCost += premiumSeatPrice;
+      } else {
+        totalCost += classicSeatPrice;
+      }
+    });
+
+    return totalCost;
   };
 
   const renderSeat = (seatName) => {
@@ -84,8 +106,15 @@ export default function BookSeats() {
       <div className="SeatMap">
         <h3>Seleziona i posti</h3>
         <div className="seats-container">{renderSeatsMap()}</div>
-        <button onClick={handleConfirmSeats}>Conferma posti</button>
       </div>
+
+      {selectedSeats.length > 0 && (
+        <div className="CheckoutContainer">
+          <h3>Checkout</h3>
+          <p>Total cost of your selected seats: {calculateTotalCost()}€</p>
+          <button onClick={handleConfirmSeats}>Conferma posti</button>
+        </div>
+      )}
     </>
   );
 }

@@ -23,9 +23,6 @@ function TopNavbar() {
             <Nav.Link href="/promotions" style={{ color: "white", fontWeight: "bold" }}>
               Promotions
             </Nav.Link>
-            <Nav.Link href="/checkout" style={{ color: "white", fontWeight: "bold" }}>
-              Checkout
-            </Nav.Link>
             <NavDropdown title={<span className="profile-title">{`My profile (${loggedUsername})`}</span>} id="basic-nav-dropdown" menuVariant="dark">
               <NavDropdown.Item href="/profile">Profile</NavDropdown.Item>
               <NavDropdown.Item href="/logout">Logout</NavDropdown.Item>

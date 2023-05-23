@@ -11,9 +11,6 @@ export default function Login() {
   const dispatch = useDispatch();
   const isAuthenticated = useSelector((state) => state.auth.isAuthenticated);
   const loggedUser = useSelector((state) => state.auth.user);
-  const loggedUsername = sessionStorage.getItem("username");
-  const loggedName = sessionStorage.getItem("name");
-  const loggedEmail = sessionStorage.getItem("email");
 
   let [authMode, setAuthMode] = useState("signin");
   let [name, setName] = useState("");
@@ -73,7 +70,7 @@ export default function Login() {
         const response = await axios.post("http://localhost:8080/api/auth/login", { username, password });
         console.log("Accesso effettuato:", response.data);
         dispatch(loginSuccess(response.data));
-        saveAccessToken(response.data.accessToken); // Salva l'accessToken nella sessionStorage
+        saveAccessToken(response.data.accessToken); //Saving the Access Token here because Profile needs it
         sessionStorage.setItem("username", response.data.username);
         setAlertSeverity("success");
         setAlertMessage("Login successful, enjoy the site " + response.data.username + "!");
@@ -99,8 +96,6 @@ export default function Login() {
       try {
         const response = await axios.post("http://localhost:8080/api/auth/register", { name, username, email, password });
         console.log("Registrazione effettuata:", response.data);
-        sessionStorage.setItem("email", response.data.email);
-        sessionStorage.setItem("name", response.data.name);
         setAlertSeverity("success");
         setAlertMessage("Registration successful, now you can login!");
         setShowAlert(true);

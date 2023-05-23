@@ -7,12 +7,13 @@ import { saveSelectedMovie } from "../redux/actions/movieActions";
 import { useNavigate } from "react-router-dom";
 
 const API_KEY = process.env.REACT_APP_API_KEY_BEARER;
-const API_KEY_LOGGED = sessionStorage.getItem("accessToken");
 
 const HomeMovies = () => {
   const [movies, setMovies] = useState([]);
   const [otherMovies, setOtherMovies] = useState([]);
   const [currentMovies, setCurrentMovies] = useState([]);
+  const API_SESSION_STORAGE = sessionStorage.getItem("accessToken");
+  const LOGGED_USERNAME = sessionStorage.getItem("username");
   const navigate = useNavigate();
 
   useEffect(() => {
@@ -50,7 +51,7 @@ const HomeMovies = () => {
                 headers: {
                   Accept: "application/json",
                   "Content-Type": "application/json",
-                  Authorization: "Bearer " + API_KEY_LOGGED,
+                  Authorization: "Bearer " + API_SESSION_STORAGE,
                 },
               });
               console.log("Film salvati nel database BE!");

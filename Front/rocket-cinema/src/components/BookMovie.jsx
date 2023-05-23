@@ -6,8 +6,12 @@ import { useSelector, useDispatch } from "react-redux";
 import { setSelectedTheater, setSelectedShowTime, setSelectedShowID } from "../redux/actions/movieActions";
 import { useNavigate } from "react-router-dom";
 
+const API_KEY = process.env.REACT_APP_API_KEY_BEARER;
+
 const BookMovie = () => {
   const checkoutStore = useSelector((state) => state.checkout);
+  const API_SESSION_STORAGE = sessionStorage.getItem("accessToken");
+  const LOGGED_USERNAME = sessionStorage.getItem("username");
   const [movieDetails, setMovieDetails] = useState(null);
   const [movieReviews, setMovieReviews] = useState([]);
   const [expandedComments, setExpandedComments] = useState([]);
@@ -42,8 +46,7 @@ const BookMovie = () => {
         const response = await axios.get(`https://api.themoviedb.org/3/movie/${checkoutStore?.selectedMovie.movieId}`, {
           headers: {
             accept: "application/json",
-            Authorization:
-              "Bearer eyJhbGciOiJIUzI1NiJ9.eyJhdWQiOiI0MmZhZDUxNzc0NGM0M2FlNDQ0NGM3N2E0ZTEyZDZmMCIsInN1YiI6IjY0NWQ0ZWZkM2ZlMTYwMDEzODY4OGQxYyIsInNjb3BlcyI6WyJhcGlfcmVhZCJdLCJ2ZXJzaW9uIjoxfQ.bu57jDjkEK9IMlZFMUkHR0QTV511AGhGQZXKP8J6vro",
+            Authorization: API_KEY,
           },
         });
 
@@ -63,8 +66,7 @@ const BookMovie = () => {
         const response = await axios.get(`https://api.themoviedb.org/3/movie/${checkoutStore?.selectedMovie.movieId}/reviews?language=en-US&page=1`, {
           headers: {
             accept: "application/json",
-            Authorization:
-              "Bearer eyJhbGciOiJIUzI1NiJ9.eyJhdWQiOiI0MmZhZDUxNzc0NGM0M2FlNDQ0NGM3N2E0ZTEyZDZmMCIsInN1YiI6IjY0NWQ0ZWZkM2ZlMTYwMDEzODY4OGQxYyIsInNjb3BlcyI6WyJhcGlfcmVhZCJdLCJ2ZXJzaW9uIjoxfQ.bu57jDjkEK9IMlZFMUkHR0QTV511AGhGQZXKP8J6vro",
+            Authorization: API_KEY,
           },
         });
 
@@ -89,8 +91,7 @@ const BookMovie = () => {
         const response = await axios.get(`http://localhost:8080/show/getShows?id=${checkoutStore?.selectedMovie.movieId}`, {
           headers: {
             accept: "application/json",
-            Authorization:
-              "Bearer eyJhbGciOiJIUzM4NCJ9.eyJzdWIiOiJhYWFAYWFhLml0IiwiaWF0IjoxNjg0ODY2ODkzLCJleHAiOjE2ODU0NzE2OTN9.5Vt5N_rRrMTaJdEmaeoMFVkCsCb5Eo8T2xqtY4JluSxEluAmzI-M-rrzkT-PeIms",
+            Authorization: "Bearer " + API_SESSION_STORAGE,
           },
         });
         if (response.status === 200) {
@@ -123,6 +124,21 @@ const BookMovie = () => {
   const handleCheckout = () => {
     navigate("/checkout");
   };
+
+  function getTheaterName(theaterID) {
+    switch (theaterID) {
+      case 1:
+        return "Cinema Stella";
+      case 2:
+        return "Cinema Omega";
+      case 3:
+        return "Cinema Alpha";
+      case 4:
+        return "Cinema Gamma";
+      default:
+        return "Unknown Theater";
+    }
+  }
 
   useEffect(() => {
     retriveShowID();
@@ -170,21 +186,22 @@ const BookMovie = () => {
                 className="select-theater"
                 value={selectedTheater}
                 onChange={(e) => {
-                  const convertedTheater = parseInt(e.target.value.charAt(e.target.value.length - 1));
+                  const convertedTheater = parseInt(e.target.value.charAt(e.target.value.length - 2));
                   dispatch(setSelectedTheater(convertedTheater));
                 }}>
                 <option value="">Select Theater</option>
                 {showList.map((show, index) => (
-                  <option key={show.theaterID} defaultValue={show.theaterID}>{`Theater ${show.theaterID}`}</option>
+                  <option key={show.theaterID} defaultValue={show.theaterID}>
+                    {`${getTheaterName(show.theaterID)} (${show.theaterID})`}
+                  </option>
                 ))}
               </select>
             )}
             <select className="select-show-time" value={selectedShowTime} onChange={(e) => dispatch(setSelectedShowTime(e.target.value))}>
               <option value="">Select Show Time</option>
-
               {showList.length > 0 &&
                 showList[1].showTime.map((time) => (
-                  <option key={time} value={time}>
+                  <option key={time} defaultValue={selectedShowTime === time ? "selected" : ""}>
                     {time}
                   </option>
                 ))}
