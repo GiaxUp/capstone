@@ -1,13 +1,11 @@
 import { combineReducers } from "redux";
 import authReducer from "./authReducer";
-import movieReducer from "./movieReducer";
-import showReducer from "./showReducer";
+import checkoutReducer from "./checkoutReducer";
 // Importa altri reducers se necessario
 
 const mainReducer = combineReducers({
   auth: authReducer,
-  movie: movieReducer,
-  show: showReducer,
+  checkout: checkoutReducer,
   // Aggiungi altri reducers qui
 });
 

@@ -3,13 +3,24 @@ import axios from "axios";
 import "../style/BookMovie.css";
 import TopNavbar from "./TopNavbar";
 import { useSelector, useDispatch } from "react-redux";
-import { setSelectedTheater, setSelectedShowTime } from "../redux/actions/movieActions";
+import { setSelectedTheater, setSelectedShowTime, setSelectedShowID } from "../redux/actions/movieActions";
+import { useNavigate } from "react-router-dom";
 
 const BookMovie = () => {
-  const selectedMovieId = useSelector((state) => state.movie.selectedMovie.movieId);
+  const checkoutStore = useSelector((state) => state.checkout);
   const [movieDetails, setMovieDetails] = useState(null);
   const [movieReviews, setMovieReviews] = useState([]);
   const [expandedComments, setExpandedComments] = useState([]);
+  const [showList, setShowList] = useState([]);
+  const [selectedTheater, setSelectedTheaterState] = useState("");
+  const [selectedShowTime, setSelectedShowTimeState] = useState("");
+  const dispatch = useDispatch();
+  const navigate = useNavigate();
+
+  const retriveShowID = () => {
+    const showFound = showList.find((show) => show.theaterID === Number(checkoutStore.selectedTheater));
+    dispatch(setSelectedShowID(showFound?.showID));
+  };
 
   const handleExpandComment = (commentId) => {
     setExpandedComments((prevExpandedComments) => [...prevExpandedComments, commentId]);
@@ -28,7 +39,7 @@ const BookMovie = () => {
   useEffect(() => {
     const fetchMovieDetails = async () => {
       try {
-        const response = await axios.get(`https://api.themoviedb.org/3/movie/${selectedMovieId}`, {
+        const response = await axios.get(`https://api.themoviedb.org/3/movie/${checkoutStore?.selectedMovie.movieId}`, {
           headers: {
             accept: "application/json",
             Authorization:
@@ -49,7 +60,7 @@ const BookMovie = () => {
 
     const fetchMovieReviews = async () => {
       try {
-        const response = await axios.get(`https://api.themoviedb.org/3/movie/${selectedMovieId}/reviews?language=en-US&page=1`, {
+        const response = await axios.get(`https://api.themoviedb.org/3/movie/${checkoutStore?.selectedMovie.movieId}/reviews?language=en-US&page=1`, {
           headers: {
             accept: "application/json",
             Authorization:
@@ -70,7 +81,52 @@ const BookMovie = () => {
 
     fetchMovieDetails();
     fetchMovieReviews();
-  }, [selectedMovieId]);
+  }, [checkoutStore?.selectedMovie.movieId]);
+
+  useEffect(() => {
+    const fetchShowData = async () => {
+      try {
+        const response = await axios.get(`http://localhost:8080/show/getShows?id=${checkoutStore?.selectedMovie.movieId}`, {
+          headers: {
+            accept: "application/json",
+            Authorization:
+              "Bearer eyJhbGciOiJIUzM4NCJ9.eyJzdWIiOiJhYWFAYWFhLml0IiwiaWF0IjoxNjg0ODM0MDU5LCJleHAiOjE2ODU0Mzg4NTl9.H1PdbDVfi3Ffm4v-_yR01pHYdpWZQRuONsnPshmi-XmQ5H8rngX26smB3YGihKDo",
+          },
+        });
+        if (response.status === 200) {
+          const data = response.data;
+          setShowList(data);
+          console.log(data);
+        } else {
+          throw new Error("Error fetching show data");
+        }
+      } catch (error) {
+        console.log(error);
+      }
+    };
+
+    fetchShowData();
+  }, [checkoutStore?.selectedMovie.movieId]);
+
+  const handleTheaterSelection = (event) => {
+    const selectedTheater = event.target.value;
+    setSelectedTheater(selectedTheater);
+    const selectedShowTime = movieDetails.shows.find((show) => show.theaterID === selectedTheater).showTime;
+    setSelectedShowTime(selectedShowTime);
+  };
+
+  const handleShowTimeSelection = (event) => {
+    const selectedShowTime = event.target.value;
+    setSelectedShowTime(selectedShowTime);
+  };
+
+  const handleCheckout = () => {
+    navigate("/checkout");
+  };
+
+  useEffect(() => {
+    retriveShowID();
+  }, [checkoutStore.selectedTheater]);
 
   return (
     <>
@@ -82,7 +138,6 @@ const BookMovie = () => {
             <img className="poster" src={`https://image.tmdb.org/t/p/w200${movieDetails.poster_path}`} alt={movieDetails.original_title} />
             <h3 className="comments-title">Description</h3>
             <p className="overview">{movieDetails.overview}</p>
-
             <h3 className="comments-title">General informations</h3>
             <p className="details">Release date: {movieDetails.release_date}</p>
             <p className="details">
@@ -90,7 +145,6 @@ const BookMovie = () => {
             </p>
             <p className="details">Average vote: {movieDetails.vote_average}</p>
             <p className="details">Number of votes: {movieDetails.vote_count}</p>
-
             {movieReviews.length > 0 ? (
               <>
                 <h3 className="comments-title">Best comments about this movie</h3>
@@ -110,16 +164,35 @@ const BookMovie = () => {
             ) : (
               <p className="no-comments">No comments available.</p>
             )}
-
+            {/* const showFound = showList.find((show) => show.theaterID === Number(checkoutStore.selectedTheater)); dispatch(setSelectedShowID(showFound?.showID)); */}
             <p className="comments-title">Book your show now</p>
-            <select className="select-theater">
-              <option value="">Select Theater</option>
-            </select>
-
-            <select className="select-show-time">
+            {showList.length > 0 && (
+              <select
+                className="select-theater"
+                value={selectedTheater}
+                onChange={(e) => {
+                  const convertedTheater = parseInt(e.target.value.charAt(e.target.value.length - 1));
+                  dispatch(setSelectedTheater(convertedTheater));
+                }}>
+                <option value="">Select Theater</option>
+                {showList.map((show, index) => (
+                  <option key={show.theaterID} defaultValue={show.theaterID}>{`Theater ${show.theaterID}`}</option>
+                ))}
+              </select>
+            )}
+            <select className="select-show-time" value={selectedShowTime} onChange={(e) => dispatch(setSelectedShowTime(e.target.value))}>
               <option value="">Select Show Time</option>
+
+              {showList.length > 0 &&
+                showList[1].showTime.map((time) => (
+                  <option key={time} value={time}>
+                    {time}
+                  </option>
+                ))}
             </select>
-            <button className="confirm-button">Checkout</button>
+            <button className="confirm-button" onClick={handleCheckout}>
+              Checkout
+            </button>
           </>
         ) : (
           <p className="loading">Loading movie details...</p>

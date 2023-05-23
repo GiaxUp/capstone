@@ -1,7 +1,6 @@
 const initialState = {
   isAuthenticated: false,
   user: null,
-  userInfo: {},
 };
 
 const authReducer = (state = initialState, action) => {
@@ -17,7 +16,6 @@ const authReducer = (state = initialState, action) => {
         ...state,
         isAuthenticated: false,
         user: null,
-        userInfo: {},
       };
     default:
       return state;

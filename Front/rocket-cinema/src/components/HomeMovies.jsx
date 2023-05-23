@@ -79,7 +79,7 @@ const HomeMovies = () => {
   };
 
   const dispatch = useDispatch();
-  const selectedMovie = useSelector((state) => state.movie.selectedMovie);
+  const checkoutStore = useSelector((state) => state.checkout);
   const handleBookTicket = (movieName, movieId) => {
     dispatch(saveSelectedMovie(movieName, movieId));
     navigate("/bookmovie");
