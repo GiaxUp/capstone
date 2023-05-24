@@ -1,9 +1,12 @@
 import React, { useEffect, useState } from "react";
 import { useSelector } from "react-redux";
 import axios from "axios";
+import { format } from "date-fns";
 
 const API_SESSION_STORAGE = sessionStorage.getItem("accessToken");
 const LOGGED_USERNAME = sessionStorage.getItem("username");
+
+const showDate = format(new Date(), "dd/MM/yyyy");
 
 export default function Profile() {
   const [tickets, setTickets] = useState([]);
@@ -37,6 +40,7 @@ export default function Profile() {
               <p>Movie: {ticket.movieName}</p>
               <p>Theater: {ticket.theaterName}</p>
               <p>Showtime: {ticket.selectedShowtime}</p>
+              <p>Show date: {showDate}</p>
               <p>Seat No: {ticket.seatNo}</p>
               <p>Ticket Amount: {ticket.ticketAmount}€</p>
             </li>

@@ -1,11 +1,11 @@
 import "../style/BookSeats.css";
+import { Container, Button } from "react-bootstrap";
 import React, { useState } from "react";
 import { useSelector, useDispatch } from "react-redux";
+import TopNavbar from "./TopNavbar";
 import { selectSeats, confirmSeats } from "../redux/actions/movieActions";
 import axios from "axios";
 import { useNavigate } from "react-router-dom";
-
-const API_KEY = process.env.REACT_APP_API_KEY_BEARER;
 
 export default function BookSeats() {
   const dispatch = useDispatch();
@@ -48,7 +48,7 @@ export default function BookSeats() {
         },
       });
       console.log(response.data);
-      alert("Pagamento effettuato!");
+      alert("Payment accepted!");
       navigate("/home");
     } catch (error) {
       console.error(error);
@@ -95,26 +95,37 @@ export default function BookSeats() {
 
   return (
     <>
-      <div className="CheckoutSummary">
-        <h2>Riepilogo Checkout</h2>
-        <p>Selected Movie: {selectedMovieStore.movieName}</p>
-        <p>Selected Theater: {selectedTheater}</p>
-        <p>Selected Show Time: {selectedShowTime}</p>
-        <p>Selected Show: {selectedShow}</p>
-      </div>
+      <TopNavbar />
+      <div className="checkout-container">
+        <Container className="d-flex flex-column align-items-center justify-content-center maincontainer">
+          <div className="CheckoutSummary d-flex flex-column align-items-center justify-content-center ">
+            <h2>Selected options</h2>
+            <p>
+              Movie: {selectedMovieStore.movieName} | Theater: {selectedTheater} | Show Number: {selectedShow} | Show Time: {selectedShowTime}
+            </p>
+          </div>
 
-      <div className="SeatMap">
-        <h3>Seleziona i posti</h3>
-        <div className="seats-container">{renderSeatsMap()}</div>
-      </div>
+          <div className="SeatMap d-flex flex-column align-items-center justify-content-center ">
+            <h2>Select your seats</h2>
+            <p>
+              Price for a Premium seat (row A): 20€ <br />
+              Price for a Classic seat (rows B - H): 10€
+            </p>
 
-      {selectedSeats.length > 0 && (
-        <div className="CheckoutContainer">
-          <h3>Checkout</h3>
-          <p>Total cost of your selected seats: {calculateTotalCost()}€</p>
-          <button onClick={handleConfirmSeats}>Conferma posti</button>
-        </div>
-      )}
+            <div className="seats-container">{renderSeatsMap()}</div>
+          </div>
+
+          {selectedSeats.length > 0 && (
+            <div className="CheckoutContainer d-flex flex-column align-items-center justify-content-center mt-3">
+              <h2>Checkout</h2>
+              <p>Total cost of your selected seats: {calculateTotalCost()}€</p>
+              <Button variant="success" onClick={handleConfirmSeats}>
+                Confirm and pay!
+              </Button>
+            </div>
+          )}
+        </Container>
+      </div>
     </>
   );
 }

@@ -7,8 +7,6 @@ import { saveSelectedMovie } from "../redux/actions/movieActions";
 import { useNavigate } from "react-router-dom";
 import YouTube from "react-youtube";
 
-const API_KEY = process.env.REACT_APP_API_KEY_BEARER;
-
 const HomeMovies = () => {
   const [movies, setMovies] = useState([]);
   const [otherMovies, setOtherMovies] = useState([]);
@@ -16,11 +14,33 @@ const HomeMovies = () => {
   const API_SESSION_STORAGE = sessionStorage.getItem("accessToken");
   const LOGGED_USERNAME = sessionStorage.getItem("username");
   const [showVideo, setShowVideo] = useState(false);
+  const [videos, setVideos] = useState([]); // Need this for the trailers
   const navigate = useNavigate();
 
-  // Open/close trailer video
-  const openVideo = () => {
+  // Fetch to get trailers for the clicked movie
+  const handleWatchTrailer = async (movieName, movieId) => {
+    dispatch(saveSelectedMovie(movieName, movieId));
     setShowVideo(true);
+
+    try {
+      const response = await axios.get(`https://api.themoviedb.org/3/movie/${movieId}/videos?language=en-US`, {
+        headers: {
+          accept: "application/json",
+          Authorization:
+            "Bearer eyJhbGciOiJIUzI1NiJ9.eyJhdWQiOiI0MmZhZDUxNzc0NGM0M2FlNDQ0NGM3N2E0ZTEyZDZmMCIsInN1YiI6IjY0NWQ0ZWZkM2ZlMTYwMDEzODY4OGQxYyIsInNjb3BlcyI6WyJhcGlfcmVhZCJdLCJ2ZXJzaW9uIjoxfQ.bu57jDjkEK9IMlZFMUkHR0QTV511AGhGQZXKP8J6vro",
+        },
+      });
+
+      if (response.status === 200) {
+        const data = response.data;
+        console.log(data);
+        setVideos(data.results);
+      } else {
+        throw new Error("Errore nella richiesta API");
+      }
+    } catch (error) {
+      console.log(error);
+    }
   };
 
   const closeVideo = () => {
@@ -34,7 +54,7 @@ const HomeMovies = () => {
     left: 0,
     right: 0,
     bottom: 0,
-    backgroundColor: "rgba(0, 0, 0, 0.8)",
+    backgroundColor: "rgba(0, 0, 0, 0.95)",
     zIndex: 9999,
   };
 
@@ -61,7 +81,8 @@ const HomeMovies = () => {
         const response = await axios.get("https://api.themoviedb.org/3/movie/now_playing?language=en-US&page=1", {
           headers: {
             accept: "application/json",
-            Authorization: API_KEY,
+            Authorization:
+              "Bearer eyJhbGciOiJIUzI1NiJ9.eyJhdWQiOiI0MmZhZDUxNzc0NGM0M2FlNDQ0NGM3N2E0ZTEyZDZmMCIsInN1YiI6IjY0NWQ0ZWZkM2ZlMTYwMDEzODY4OGQxYyIsInNjb3BlcyI6WyJhcGlfcmVhZCJdLCJ2ZXJzaW9uIjoxfQ.bu57jDjkEK9IMlZFMUkHR0QTV511AGhGQZXKP8J6vro",
           },
         });
 
@@ -71,6 +92,7 @@ const HomeMovies = () => {
           setMovies(data.results);
           const results = data.results;
 
+          // Pushing the sliced movies from TMBD API to my database, in order to manage the tickets later
           const formattedMovies = results.slice(0, 5).map((movie) => {
             return {
               id: movie.id,
@@ -118,6 +140,7 @@ const HomeMovies = () => {
     return chunkedArray;
   };
 
+  // Saving the Movie name and ID in the Redux Store
   const dispatch = useDispatch();
   const checkoutStore = useSelector((state) => state.checkout);
   const handleBookTicket = (movieName, movieId) => {
@@ -125,13 +148,14 @@ const HomeMovies = () => {
     navigate("/bookmovie");
   };
 
+  // This will show the "Coming soon" movies separated from the "Now in theaters" movies in the section below
   const MovieRow = ({ movies }) => (
     <div className="movie-row">
       {movies.map((movie) => (
         <div key={movie.id} className="movie-card">
           <img src={`https://image.tmdb.org/t/p/w200${movie.poster_path}`} alt={movie.title} />
           <div className="movie-card-overlay">
-            <button className="btn btn-secondary" onClick={openVideo}>
+            <button className="btn btn-secondary" onClick={() => handleWatchTrailer(movie.original_title, movie.id)}>
               Watch Trailer
             </button>
           </div>
@@ -150,18 +174,19 @@ const HomeMovies = () => {
             {showVideo && (
               <div style={overlayStyle} onClick={closeVideo}>
                 <div style={videoContainerStyle}>
-                  <YouTube videoId="tRotw_IpuaQ" />
+                  {videos.length > 0 && <YouTube videoId={videos.find((video) => video.name.includes("Official Trailer")).key} />}
                   <span style={closeBtnStyle} onClick={closeVideo}>
                     X
                   </span>
                 </div>
               </div>
             )}
+
             {movies.map((movie) => (
               <div key={movie.id} className="movie-card">
                 <img src={`https://image.tmdb.org/t/p/w200${movie.poster_path}`} alt={movie.title} />
                 <div className="movie-card-overlay">
-                  <button className="btn btn-secondary" onClick={openVideo}>
+                  <button className="btn btn-secondary" onClick={() => handleWatchTrailer(movie.original_title, movie.id)}>
                     Watch Trailer
                   </button>
                   <button className="btn btn-primary" onClick={() => handleBookTicket(movie.original_title, movie.id)}>

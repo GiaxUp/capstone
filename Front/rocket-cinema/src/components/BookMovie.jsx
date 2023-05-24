@@ -46,7 +46,8 @@ const BookMovie = () => {
         const response = await axios.get(`https://api.themoviedb.org/3/movie/${checkoutStore?.selectedMovie.movieId}`, {
           headers: {
             accept: "application/json",
-            Authorization: API_KEY,
+            Authorization:
+              "Bearer eyJhbGciOiJIUzI1NiJ9.eyJhdWQiOiI0MmZhZDUxNzc0NGM0M2FlNDQ0NGM3N2E0ZTEyZDZmMCIsInN1YiI6IjY0NWQ0ZWZkM2ZlMTYwMDEzODY4OGQxYyIsInNjb3BlcyI6WyJhcGlfcmVhZCJdLCJ2ZXJzaW9uIjoxfQ.bu57jDjkEK9IMlZFMUkHR0QTV511AGhGQZXKP8J6vro",
           },
         });
 
@@ -66,7 +67,8 @@ const BookMovie = () => {
         const response = await axios.get(`https://api.themoviedb.org/3/movie/${checkoutStore?.selectedMovie.movieId}/reviews?language=en-US&page=1`, {
           headers: {
             accept: "application/json",
-            Authorization: API_KEY,
+            Authorization:
+              "Bearer eyJhbGciOiJIUzI1NiJ9.eyJhdWQiOiI0MmZhZDUxNzc0NGM0M2FlNDQ0NGM3N2E0ZTEyZDZmMCIsInN1YiI6IjY0NWQ0ZWZkM2ZlMTYwMDEzODY4OGQxYyIsInNjb3BlcyI6WyJhcGlfcmVhZCJdLCJ2ZXJzaW9uIjoxfQ.bu57jDjkEK9IMlZFMUkHR0QTV511AGhGQZXKP8J6vro",
           },
         });
 
@@ -197,6 +199,14 @@ const BookMovie = () => {
                 ))}
               </select>
             )}
+
+            {/* Visualizza il theaterID selezionato */}
+            {checkoutStore.selectedTheater && (
+              <p>
+                Theater: {checkoutStore.selectedTheater} | Show: {checkoutStore.selectedShow}
+              </p>
+            )}
+
             <select className="select-show-time" value={selectedShowTime} onChange={(e) => dispatch(setSelectedShowTime(e.target.value))}>
               <option value="">Select Show Time</option>
               {showList.length > 0 &&
@@ -206,6 +216,10 @@ const BookMovie = () => {
                   </option>
                 ))}
             </select>
+
+            {/* Visualizza il requestedShowtime selezionato */}
+            {checkoutStore.selectedShowTime && <p>Show Time: {checkoutStore.selectedShowTime}</p>}
+
             <button className="confirm-button" onClick={handleCheckout}>
               Checkout
             </button>

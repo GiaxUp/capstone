@@ -5,8 +5,6 @@ import "../style/Navbar.css";
 function TopNavbar() {
   const loggedUser = useSelector((state) => state.auth.user);
   const loggedUsername = sessionStorage.getItem("username");
-  const loggedName = sessionStorage.getItem("name");
-  const loggedEmail = sessionStorage.getItem("email");
 
   return (
     <Navbar bg="dark" expand="lg">
