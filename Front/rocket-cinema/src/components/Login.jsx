@@ -117,7 +117,7 @@ export default function Login() {
   if (authMode === "signin") {
     return (
       <div className="Auth-form-container">
-        <img src="https://i.ibb.co/QjFyyLW/logo3.png" alt="logo3" border="0" className="me-3" />
+        <img src="images/logo.png" alt="logo3" border="0" className="me-3 logo3" />
         <form className="Auth-form" onSubmit={handleSubmit}>
           <div className="Auth-form-content">
             <Snackbar open={showAlert} autoHideDuration={3000} onClose={handleAlertClose}>

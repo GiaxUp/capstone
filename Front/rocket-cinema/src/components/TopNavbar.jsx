@@ -12,7 +12,7 @@ function TopNavbar() {
     <Navbar bg="dark" expand="lg">
       <Container fluid>
         <Navbar.Brand href="/">
-          <img src="https://i.ibb.co/3sn8nYJ/logo.png" alt="logo" border="0" />
+          <img src="images/logoNav.png" alt="logonav" className="logonav" />
         </Navbar.Brand>
         <Navbar.Toggle aria-controls="navbarScroll" />
         <Navbar.Collapse id="navbarScroll">
