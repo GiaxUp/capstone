@@ -7,7 +7,6 @@ import { selectSeats, confirmSeats } from "../redux/actions/movieActions";
 import axios from "axios";
 import { useNavigate } from "react-router-dom";
 
-//c
 export default function BookSeats() {
   const dispatch = useDispatch();
   const navigate = useNavigate();
