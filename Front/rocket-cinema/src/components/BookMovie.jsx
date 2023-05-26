@@ -200,7 +200,6 @@ const BookMovie = () => {
               </select>
             )}
 
-            {/* Visualizza il theaterID selezionato */}
             {checkoutStore.selectedTheater && (
               <p>
                 Theater: {checkoutStore.selectedTheater} | Show: {checkoutStore.selectedShow}
@@ -217,7 +216,6 @@ const BookMovie = () => {
                 ))}
             </select>
 
-            {/* Visualizza il requestedShowtime selezionato */}
             {checkoutStore.selectedShowTime && <p>Show Time: {checkoutStore.selectedShowTime}</p>}
 
             <button className="confirm-button" onClick={handleCheckout}>

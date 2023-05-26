@@ -1,5 +1,6 @@
 .container-movie {
-  background-color: #775f5f;
+  background-color: #030e4f;
+  border-style: solid;
   padding: 20px;
   display: flex;
   flex-direction: column;
