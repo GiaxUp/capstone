@@ -36,7 +36,18 @@ export default function Profile() {
       <TopNavbar />
       <div className="ProfileContainer">
         <h2>Welcome back, {LOGGED_USERNAME}</h2>
-        <h3>Ticket Summary</h3>
+        <h3>Achievements unlocked</h3>
+        <div className="Achievements">
+          <img src="https://i.psnprofiles.com/games/f4d4c7/trophies/3L16ef66.png" alt="Medal" />
+          <img src="https://i.psnprofiles.com/games/f4d4c7/trophies/6L27655f.png" alt="Medal" />
+          <img src="https://i.psnprofiles.com/games/f4d4c7/trophies/5L01deb2.png" alt="Medal" />
+          <img src="https://i.psnprofiles.com/games/f4d4c7/trophies/4L4b7539.png" alt="Medal" />
+          <img src="https://i.psnprofiles.com/games/f4d4c7/trophies/21L550f6e.png" alt="Medal" />
+          <img src="https://i.psnprofiles.com/games/f4d4c7/trophies/17L109feb.png" alt="Medal" />
+          <img src="https://i.psnprofiles.com/games/f4d4c7/trophies/16L290956.png" alt="Medal" />
+          <img src="https://i.psnprofiles.com/games/f4d4c7/trophies/9L3b2353.png" alt="Medal" />
+        </div>
+        <h3>Tickets</h3>
         {tickets.length > 0 ? (
           <ul className="TicketList">
             {tickets.map((ticket, index) => (

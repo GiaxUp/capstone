@@ -40,12 +40,12 @@ const Footer = () => {
               </p>
               <p>
                 <a href="#!" className="text-dark">
-                  Premium Subscription
+                  Promotions
                 </a>
               </p>
               <p>
                 <a href="#!" className="text-dark">
-                  Coming soon in theaters
+                  Coming Soon
                 </a>
               </p>
             </Col>
