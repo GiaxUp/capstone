@@ -3,6 +3,7 @@ import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
 import { Provider } from "react-redux";
 import store from "./redux/store/store";
 import Login from "./components/Login.jsx";
+import Logout from "./components/Logout.jsx";
 import Profile from "./components/Profile.jsx";
 import Checkout from "./components/Checkout.jsx";
 import Home from "../src/components/Home.jsx";
@@ -16,6 +17,7 @@ function App() {
       <Router>
         <Routes>
           <Route path="/" element={<Login />} />
+          <Route path="/logout" element={<Logout />} />
           <Route path="/home" element={<Home />} />
           <Route path="/profile" element={<Profile />} />
           <Route path="/checkout" element={<Checkout />} />

@@ -1,10 +1,17 @@
 import { Navbar, Container, Nav, NavDropdown, Form, Button } from "react-bootstrap";
 import { useSelector } from "react-redux";
+import { useState } from "react";
 import "../style/Navbar.css";
+import Logout from "../components/Logout.jsx";
 
 function TopNavbar() {
   const loggedUser = useSelector((state) => state.auth.user);
   const loggedUsername = sessionStorage.getItem("username");
+  const [showLogout, setShowLogout] = useState(false);
+
+  const handleLogout = () => {
+    setShowLogout(true);
+  };
 
   return (
     <Navbar bg="dark" expand="lg">
@@ -23,7 +30,7 @@ function TopNavbar() {
             </Nav.Link>
             <NavDropdown title={<span className="profile-title">{`My profile (${loggedUsername})`}</span>} id="basic-nav-dropdown" menuVariant="dark">
               <NavDropdown.Item href="/profile">Profile</NavDropdown.Item>
-              <NavDropdown.Item href="/logout">Logout</NavDropdown.Item>
+              <NavDropdown.Item onClick={handleLogout}>Logout</NavDropdown.Item>
             </NavDropdown>
           </Nav>
           <Form className="d-flex">
@@ -34,6 +41,7 @@ function TopNavbar() {
           </Form>
         </Navbar.Collapse>
       </Container>
+      {showLogout && <Logout />}
     </Navbar>
   );
 }

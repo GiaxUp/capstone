@@ -1,11 +1,12 @@
 import "../style/BookSeats.css";
 import { Container, Button } from "react-bootstrap";
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import { useSelector, useDispatch } from "react-redux";
 import TopNavbar from "./TopNavbar";
 import { selectSeats, confirmSeats } from "../redux/actions/movieActions";
 import axios from "axios";
 import { useNavigate } from "react-router-dom";
+import { Alert, Snackbar } from "@mui/material";
 
 export default function BookSeats() {
   const dispatch = useDispatch();
@@ -21,6 +22,44 @@ export default function BookSeats() {
   const requestedSeats = useSelector((state) => checkoutStore.requestedSeats);
 
   const [selectedSeats, setSelectedSeats] = useState([]);
+  const [showAlert, setShowAlert] = useState(false);
+  const [bookedSeats, setBookedSeats] = useState([]);
+
+  useEffect(() => {
+    if (selectedShow) {
+      fetchBookedSeats();
+    }
+  }, [selectedShow]);
+
+  const fetchBookedSeats = async () => {
+    try {
+      const response = await axios.get(`http://localhost:8080/ticket/show/${selectedShow}`, {
+        headers: {
+          accept: "application/json",
+          Authorization: "Bearer " + API_SESSION_STORAGE,
+        },
+      });
+
+      let bookedSeats = [];
+
+      if (response.data.length > 0) {
+        response.data.forEach((booking) => {
+          const { allocatedSeats } = booking;
+          if (allocatedSeats) {
+            const seats = allocatedSeats.split(",").map((seat) => seat.trim());
+            bookedSeats = [...bookedSeats, ...seats];
+          }
+        });
+
+        setBookedSeats(bookedSeats);
+        console.log(bookedSeats);
+      } else {
+        console.log("No data available");
+      }
+    } catch (error) {
+      console.error(error);
+    }
+  };
 
   const handleSeatClick = (seatName) => {
     if (selectedSeats.includes(seatName)) {
@@ -41,15 +80,18 @@ export default function BookSeats() {
     };
 
     try {
-      const response = await axios.post("http://localhost:8080/ticket/book", ticketData, {
+      await axios.post("http://localhost:8080/ticket/book", ticketData, {
         headers: {
           accept: "application/json",
           Authorization: "Bearer " + API_SESSION_STORAGE,
         },
       });
-      console.log(response.data);
-      alert("Payment accepted!");
-      navigate("/home");
+
+      setShowAlert(true); // Mostra l'alert
+      setTimeout(() => {
+        setShowAlert(false); // Nasconde l'alert dopo 5 secondi
+        navigate("/home"); // Esegue il redirect dopo 5 secondi
+      }, 5000);
     } catch (error) {
       console.error(error);
     }
@@ -74,9 +116,13 @@ export default function BookSeats() {
   const renderSeat = (seatName) => {
     const isSelected = selectedSeats.includes(seatName);
     const isPremiumRow = seatName[0] === "A";
+    const isBooked = bookedSeats.includes(seatName);
 
     return (
-      <div key={seatName} className={`seat ${isSelected ? "selected" : ""} ${isPremiumRow ? "premium" : ""}`} onClick={() => handleSeatClick(seatName)}>
+      <div
+        key={seatName}
+        className={`seat ${isSelected ? "selected" : ""} ${isPremiumRow ? "premium" : ""} ${isBooked ? "booked" : ""}`}
+        onClick={() => handleSeatClick(seatName)}>
         {seatName}
       </div>
     );
@@ -91,6 +137,10 @@ export default function BookSeats() {
         {Array.from({ length: seatsPerRow }, (_, index) => renderSeat(`${row}${index + 1}`))}
       </div>
     ));
+  };
+
+  const handleAlertClose = () => {
+    setShowAlert(false);
   };
 
   return (
@@ -126,6 +176,11 @@ export default function BookSeats() {
           )}
         </Container>
       </div>
+      <Snackbar open={showAlert} autoHideDuration={3000} onClose={handleAlertClose} anchorOrigin={{ vertical: "bottom", horizontal: "left" }}>
+        <Alert onClose={handleAlertClose} icon={false} severity="success" sx={{ width: "100%" }}>
+          Payment accepted!
+        </Alert>
+      </Snackbar>
     </>
   );
 }
