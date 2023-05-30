@@ -47,7 +47,7 @@ const HomeMovies = () => {
     setShowVideo(false);
   };
 
-  // Stuff for the "Turn off lights" effetct around trailers
+  // Stuff for the "Turn off lights" effect around trailers
   const overlayStyle = {
     position: "fixed",
     top: 0,
@@ -174,7 +174,11 @@ const HomeMovies = () => {
             {showVideo && (
               <div style={overlayStyle} onClick={closeVideo}>
                 <div style={videoContainerStyle}>
-                  {videos.length > 0 && <YouTube videoId={videos.find((video) => video.name.includes("Official Trailer")).key} />}
+                  {videos.length > 0 ? (
+                    <YouTube videoId={videos.find((video) => video.name.includes("Official Trailer"))?.key} />
+                  ) : (
+                    <p>No trailers available yet! Check back later.</p>
+                  )}
                   <span style={closeBtnStyle} onClick={closeVideo}>
                     X
                   </span>

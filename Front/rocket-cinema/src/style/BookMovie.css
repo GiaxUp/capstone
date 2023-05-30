@@ -129,15 +129,15 @@
 .confirm-button {
   border-radius: 30px;
   padding: 12px 30px;
-  background-color: #ff6b6b;
+  background-color: gold;
   border: none;
   outline: none;
-  color: #fff;
+  color: #3739cc;
   font-weight: bold;
   cursor: pointer;
   transition: background-color 0.3s;
 }
 
 .confirm-button:hover {
-  background-color: #ff4d4d;
+  background-color: rgb(206, 175, 0);
 }

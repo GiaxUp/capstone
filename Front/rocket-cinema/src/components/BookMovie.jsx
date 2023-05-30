@@ -219,7 +219,7 @@ const BookMovie = () => {
             {checkoutStore.selectedShowTime && <p>Show Time: {checkoutStore.selectedShowTime}</p>}
 
             <button className="confirm-button" onClick={handleCheckout}>
-              Checkout
+              Checkout with <i class="fa-brands fa-paypal"></i> PayPal
             </button>
           </>
         ) : (

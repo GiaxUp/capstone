@@ -177,7 +177,7 @@ export default function BookSeats() {
         </Container>
       </div>
       <Snackbar open={showAlert} autoHideDuration={3000} onClose={handleAlertClose} anchorOrigin={{ vertical: "bottom", horizontal: "left" }}>
-        <Alert onClose={handleAlertClose} icon={false} severity="success" sx={{ width: "100%" }}>
+        <Alert icon={false} onClose={handleAlertClose} variant="filled" severity="success">
           Payment accepted!
         </Alert>
       </Snackbar>
