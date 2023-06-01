@@ -87,11 +87,11 @@ export default function BookSeats() {
         },
       });
 
-      setShowAlert(true); // Mostra l'alert
+      setShowAlert(true);
       setTimeout(() => {
-        setShowAlert(false); // Nasconde l'alert dopo 5 secondi
-        navigate("/home"); // Esegue il redirect dopo 5 secondi
-      }, 5000);
+        setShowAlert(false);
+        navigate("/profile");
+      }, 3000);
     } catch (error) {
       console.error(error);
     }

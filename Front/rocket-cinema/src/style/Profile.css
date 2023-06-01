@@ -1,112 +1,12 @@
-.ProfileContainer {
-  background-color: #030e4f;
-  border-style: solid;
-  padding: 20px;
-  display: flex;
-  flex-direction: column;
-  justify-content: flex-start;
-  align-items: flex-start;
-  margin-top: 10px;
-  margin-bottom: 10px;
-  margin-left: 350px;
-  margin-right: 350px;
-  border-radius: 5px;
-  font-family: "Roboto", sans-serif;
-}
-
-.WelcomeBack {
-  margin-bottom: 20px;
-}
-
-.TicketSummary {
-  margin-top: 20px;
-  width: 100%;
-}
-
-.Ticket {
-  display: flex;
-  justify-content: space-between;
-  align-items: flex-end;
+.ticket-card {
   background-color: beige;
-  border-radius: 8px;
-  padding: 20px;
-  margin-bottom: 10px;
+  color: #5b0e2d;
   box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
   transition: transform 0.3s, box-shadow 0.3s;
-  position: relative;
 }
 
-.Ticket:hover {
-  transform: scale(1.05);
+.ticket-card:hover {
+  transform: scale(1.03);
   border-color: lightyellow;
-  box-shadow: 0 0 10px yellow;
-}
-
-.ticket-container {
-  display: flex;
-  align-items: center;
-  font-family: Arial, sans-serif;
-  width: 70%;
-}
-
-.ticket-info {
-  flex: 1;
-  margin-right: 20px;
-}
-
-.title-line {
-  font-size: 24px;
-  font-weight: bold;
-  margin-bottom: 10px;
-  overflow: hidden;
-  text-overflow: ellipsis;
-  white-space: nowrap;
-}
-
-.theater-line,
-.showtime-line,
-.showdate-line {
-  margin-bottom: 5px;
-}
-
-.ticket-details {
-  display: flex;
-  flex-direction: column;
-  justify-content: flex-end;
-  align-items: flex-end;
-  font-family: Arial, sans-serif;
-  position: absolute;
-  bottom: 20px;
-  right: 20px;
-}
-
-.seatNo-line,
-.ticketAmount-line {
-  font-size: 18px;
-}
-
-.ticketAmount-line {
-  margin-top: 10px;
-}
-
-ul {
-  list-style-type: none;
-  padding: 0;
-}
-
-p {
-  font-family: Arial, sans-serif;
-  font-size: 18px;
-  text-align: center;
-}
-
-.Achievements {
-  display: flex;
-  justify-content: space-between;
-  margin-bottom: 20px;
-}
-
-.Achievements img {
-  width: 75px;
-  height: 75px;
+  box-shadow: 0 0 10px #e06194;
 }
