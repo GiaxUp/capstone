@@ -169,9 +169,9 @@ export default function BookSeats() {
             <div className="CheckoutContainer d-flex flex-column align-items-center justify-content-center mt-3">
               <h2>Checkout</h2>
               <p>Total cost of your selected seats: {calculateTotalCost()}€</p>
-              <Button variant="success" onClick={handleConfirmSeats}>
-                Confirm and pay!
-              </Button>
+              <button className="confirm-button" onClick={handleConfirmSeats}>
+                Confirm and pay with <i class="fa-brands fa-paypal"></i> PayPal
+              </button>
             </div>
           )}
         </Container>
