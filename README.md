@@ -1,4 +1,4 @@
-# Capstone Project
+# Capstone Project - Rocket Cinema Website
  This is my final Fullstack project for [EPICODE](https://epicode.com/it/)'s Web Developer course!  
 I decided to create a ticket management site for a cinema, allowing registered users to choose their seats and save tickets on their profile.
 
@@ -28,7 +28,8 @@ Frontend:
  
 Backend:
 1. Make sure to have Java and Maven on your system
-2. Enter in the project folder with `$ cd rocket_cinema`
-3. Start the application with `$ mvn spring-boot:run`
+2. Remember to update the **application.proprieties** file with your database credentials and stuff
+3. Enter in the project folder with `$ cd rocket_cinema`
+4. Start the application with `$ mvn spring-boot:run` and then click "Ok"
 
 After that, create an account in the login page and log with that account. Your access token will be stored in the session storage. The top 5 movies in theater now will be saved in the database, allowing you (after a backend restart) to generate shows and shows seats for those movies. It's a little bit tricky but I'm pretty sure you can do it.
