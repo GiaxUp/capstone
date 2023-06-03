@@ -30,3 +30,5 @@ Backend:
 1. Make sure to have Java and Maven on your system
 2. Enter in the project folder with `$ cd rocket_cinema`
 3. Start the application with `$ mvn spring-boot:run`
+
+After that, create an account in the login page and log with that account. Your access token will be stored in the session storage. The top 5 movies in theater now will be saved in the database, allowing you (after a backend restart) to generate shows and shows seats for those movies. It's a little bit tricky but I'm pretty sure you can do it.
