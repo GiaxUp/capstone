@@ -10,6 +10,8 @@ I decided to create a ticket management site for a cinema, allowing registered u
 * Select your seats! In the movie page, after selecting the theater and the desired show time you will be redirected to the Checkout page where there is a seat selection. Every theater have 64 seats and you can choose if you want a Premium Seat for 20€ (first row) or a Classic Seat for 10€ (second to last row)
 * After the review you can check and manage your tickets in your Profile, where you can find also your personal information stored during registration
 * There's also a Promotions section where you can see the ongoing gadgets avaiable for some selected movies
+## Demo
+If you want to see the site in action, you can find a demo presentation <a href="https://www.youtube.com/watch?v=rV5nATfn-ko" target="_blank">HERE!</a>
 ## Technologies
 I used most of the technologies learned in the last 6 months of the course. Here's a list with the most intresting ones:
 * For the backend development, I used **Spring Boot**. Its extensive set of libraries and tools allowed to create a highly efficient and secure backend for the project with smooth data handling and efficient processing of user requests.
@@ -32,4 +34,4 @@ Backend:
 3. Enter in the project folder with `$ cd rocket_cinema`
 4. Start the application with `$ mvn spring-boot:run` and then click "Ok"
 
-After that, create an account in the login page and log with that account. Your access token will be stored in the session storage. The top 5 movies in theater now will be saved in the database, allowing you (after a backend restart) to generate shows and shows seats for those movies. It's a little bit tricky but I'm pretty sure you can do it.
+After that, create an account in the login page and log with that account. Your access token will be stored in the session storage. The top 5 movies in theater now will be saved in the database, allowing you (after a backend restart) to generate shows and shows seats for those movies. It's a little bit tricky but I'm pretty sure you can do it!
