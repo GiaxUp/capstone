@@ -11,8 +11,7 @@ I decided to create a ticket management site for a cinema, allowing registered u
 * After the review you can check and manage your tickets in your Profile, where you can find also your personal information stored during registration
 * There's also a Promotions section where you can see the ongoing gadgets avaiable for some selected movies
 ## Demo
-If you want to see the site in action, you can find a demo presentation <a href="https://www.youtube.com/watch?v=rV5nATfn-ko" target='_blank'>HERE!</a>
-
+If you want to see the site in action, you can find a demo presentation <a href="https://www.youtube.com/watch?v=rV5nATfn-ko" target="_blank">HERE!</a>
 ## Technologies
 I used most of the technologies learned in the last 6 months of the course. Here's a list with the most intresting ones:
 * For the backend development, I used **Spring Boot**. Its extensive set of libraries and tools allowed to create a highly efficient and secure backend for the project with smooth data handling and efficient processing of user requests.
