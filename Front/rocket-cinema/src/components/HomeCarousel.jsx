@@ -9,16 +9,16 @@ function HomeCarousel() {
           <img src="images/Car0.jpg" alt="First slide" />
         </Carousel.Item>
         <Carousel.Item interval={4500}>
+          <img src="images/Car7.jpg" alt="Second slide" />
+        </Carousel.Item>
+        <Carousel.Item interval={4500}>
+          <img src="images/Car6.jpg" alt="Third slide" />
+        </Carousel.Item>
+        <Carousel.Item interval={4500}>
+          <img src="images/Car5.jpg" alt="Fourth slide" />
+        </Carousel.Item>
+        <Carousel.Item interval={4500}>
           <img src="images/Car1.jpg" alt="Second slide" />
-        </Carousel.Item>
-        <Carousel.Item interval={4500}>
-          <img src="images/Car2.jpg" alt="Third slide" />
-        </Carousel.Item>
-        <Carousel.Item interval={4500}>
-          <img src="images/Car3.jpg" alt="Fourth slide" />
-        </Carousel.Item>
-        <Carousel.Item interval={4500}>
-          <img src="images/Car4.png" alt="Fifth slide" />
         </Carousel.Item>
       </Carousel>
     </div>

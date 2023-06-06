@@ -3,19 +3,9 @@ import axios from "axios";
 import { format } from "date-fns";
 import "../style/Profile.css";
 import TopNavbar from "./TopNavbar";
-import {
-  MDBCol,
-  MDBContainer,
-  MDBRow,
-  MDBCard,
-  MDBCardText,
-  MDBCardBody,
-  MDBCardImage,
-  MDBBtn,
-  MDBIcon,
-  MDBListGroup,
-  MDBListGroupItem,
-} from "mdb-react-ui-kit";
+import Footer from "./Footer";
+
+import { MDBCol, MDBContainer, MDBRow, MDBCard, MDBCardText, MDBCardBody, MDBCardImage, MDBBtn } from "mdb-react-ui-kit";
 
 // IMPORTANT! This section will be hardcoded with my socials stuff and infos,
 // just because I need to present this project in a live call!
@@ -139,6 +129,7 @@ export default function Profile() {
           </MDBRow>
         </MDBContainer>
       </section>
+      <Footer />
     </>
   );
 }

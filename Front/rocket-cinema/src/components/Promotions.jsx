@@ -8,6 +8,7 @@ const Promotions = () => {
     <>
       <TopNavbar />
       <div className="promotions-container">
+        <img src="images/Car7.jpg" alt="Zero" className="promotions-image" />
         <img src="images/Car0.jpg" alt="First" className="promotions-image" />
         <img src="images/Car2.jpg" alt="Third" className="promotions-image" />
         <img src="images/Car3.jpg" alt="Fourth" className="promotions-image" />

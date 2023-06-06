@@ -78,7 +78,7 @@ export default function Login() {
         setTimeout(() => {
           handleAlertClose();
           navigate("/home");
-        }, 3000);
+        }, 2000);
       } catch (error) {
         console.error("Errore durante l'accesso:", error);
         setAlertSeverity("error");
