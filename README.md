@@ -14,20 +14,20 @@ I decided to create a ticket management site for a cinema, allowing registered u
 If you want to see the site in action, you can find a demo presentation <a href="https://www.youtube.com/watch?v=rV5nATfn-ko" target="_blank">HERE!</a>
 ## Screenshots
 ### Home Page
-![HomePage](https://i.ibb.co/CbN5vWV/home.png)
+![image](https://github.com/GiaxUp/capstone/assets/40038797/0f8cd1c0-7861-429b-80e2-c7250353f6c1)
 ### Main section
-![Main1](https://i.ibb.co/DMRPzpc/main1.png)
-![Main2](https://i.ibb.co/L0mc6BW/main2.png)
+![image](https://github.com/GiaxUp/capstone/assets/40038797/c4eccf40-cbad-4e77-9161-9a2458b3a877)
+![image](https://github.com/GiaxUp/capstone/assets/40038797/de25bece-beb8-4940-9f4b-e60a21717b81)
 ### Trailer
-![Trailer](https://i.ibb.co/vHKxvn9/trailer.png)
+![image](https://github.com/GiaxUp/capstone/assets/40038797/9670a5d3-8312-4505-a6de-bbfbf6ef076b)
 ### Promotions
-![Promotions](https://i.ibb.co/T40Yjbr/promotions.png)
+![image](https://github.com/GiaxUp/capstone/assets/40038797/afb4fc8f-f29d-4e74-832d-1eb2da173aa4)
 ### Book ticket
-![Book](https://i.ibb.co/0MRKpmh/book1.png)
+![image](https://github.com/GiaxUp/capstone/assets/40038797/a731b838-2273-4a59-a5fa-1b7427e0dfb4)
 ### Select seats
-![Seats](https://i.ibb.co/mT7vzK9/seats.png)
+![image](https://github.com/GiaxUp/capstone/assets/40038797/75b28765-ed23-4cfc-8462-17b155bcae70)
 ### Profile page
-![Profile](https://i.ibb.co/mtSY8sy/profile.png)
+![image](https://github.com/GiaxUp/capstone/assets/40038797/d69a8178-4df2-4ba4-88fe-b32c83024646)
 ## Technologies
 I used most of the technologies learned in the last 6 months of the course. Here's a list with the most intresting ones:
 * For the backend development, I used **Spring Boot**. Its extensive set of libraries and tools allowed to create a highly efficient and secure backend for the project with smooth data handling and efficient processing of user requests.
