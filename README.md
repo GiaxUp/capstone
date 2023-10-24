@@ -12,6 +12,22 @@ I decided to create a ticket management site for a cinema, allowing registered u
 * There's also a Promotions section where you can see the ongoing gadgets avaiable for some selected movies
 ## Demo
 If you want to see the site in action, you can find a demo presentation <a href="https://www.youtube.com/watch?v=rV5nATfn-ko" target="_blank">HERE!</a>
+## Screenshots
+### Home Page
+![HomePage](https://i.ibb.co/CbN5vWV/home.png)
+### Main section
+![Main1](https://i.ibb.co/DMRPzpc/main1.png)
+![Main2](https://i.ibb.co/L0mc6BW/main2.png)
+### Trailer
+![Trailer](https://i.ibb.co/vHKxvn9/trailer.png)
+### Promotions
+![Promotions](https://i.ibb.co/T40Yjbr/promotions.png)
+### Book ticket
+![Book](https://i.ibb.co/0MRKpmh/book1.png)
+### Select seats
+![Seats](https://i.ibb.co/mT7vzK9/seats.png)
+### Profile page
+![Profile](https://i.ibb.co/mtSY8sy/profile.png)
 ## Technologies
 I used most of the technologies learned in the last 6 months of the course. Here's a list with the most intresting ones:
 * For the backend development, I used **Spring Boot**. Its extensive set of libraries and tools allowed to create a highly efficient and secure backend for the project with smooth data handling and efficient processing of user requests.
@@ -24,14 +40,14 @@ I used most of the technologies learned in the last 6 months of the course. Here
 Frontend:
 1. First of all make sure to have Node.js on your system
 2. Clone this repository with `$ git clone https://github.com/GiaxUp/Capstone/`
-3. Enter in the project folder with `$ cd rocket_cinema`
+3. Enter in the frontend folder with `$ cd front` and then `$ cd rocket-cinema`
 4. Install all the dependencies with `$ npm i`
 5. Start the application with `$ npm start` 
  
 Backend:
 1. Make sure to have Java and Maven on your system
 2. Remember to update the **application.proprieties** file with your database credentials and stuff
-3. Enter in the project folder with `$ cd rocket_cinema`
+3. Enter in the backend folder with `$ cd back`
 4. Start the application with `$ mvn spring-boot:run` and then click "Ok"
 
 After that, create an account in the login page and log with that account. Your access token will be stored in the session storage. The top 5 movies in theater now will be saved in the database, allowing you (after a backend restart) to generate shows and shows seats for those movies. It's a little bit tricky but I'm pretty sure you can do it!
