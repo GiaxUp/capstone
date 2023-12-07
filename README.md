@@ -1,4 +1,4 @@
-# Capstone Project - Rocket Cinema Website
+# Capstone Project - Rocket Cinema v1.0
  This is my final Fullstack project for [EPICODE](https://epicode.com/it/)'s Web Developer course!  
 I decided to create a ticket management site for a cinema, allowing registered users to choose their seats and save tickets on their profile.
 
